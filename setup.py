@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="jx-libcollection",
-    version="0.0.1",
+    version="0.0.2",
     author="jiao.xue",
     author_email="jiao.xuejiao@gmail.com",
     description="Jiao's collection libs",
