@@ -3,8 +3,10 @@ from lib_collection.kvstore.linked_list import LinkedListKVStore
 
 class HashMap(object):
 
-    def __init__(self):
-        self.bucket_cnt = 3
+    __item_cnt_per_bucket__ = 10
+
+    def __init__(self, bucket_cnt=3):
+        self.bucket_cnt = bucket_cnt
         self.n = 0
         self.buckets = [LinkedListKVStore() for _ in range(self.bucket_cnt)]
 
@@ -26,11 +28,21 @@ class HashMap(object):
         >>> d = HashMap()
         >>> d['a'] = 1
         """
-        h = self._hash(k)
-        bucket = self.buckets[h]
-        if k not in bucket:
-            self.n += 1
-        bucket[k] = v
+        if self.bucket_cnt * self.__item_cnt_per_bucket__ <= self.n:
+            new_bucket_cnt = self.bucket_cnt * 2 + 1
+            new_hash_map = HashMap(new_bucket_cnt)
+            new_hash_map[k] = v
+            for _k, _v in self:
+                new_hash_map[_k] = _v
+            self.bucket_cnt = new_hash_map.bucket_cnt
+            self.n = new_hash_map.n
+            self.buckets = new_hash_map.buckets
+        else:
+            h = self._hash(k)
+            bucket = self.buckets[h]
+            if k not in bucket:
+                self.n += 1
+            bucket[k] = v
 
     def __getitem__(self, k):
         """
@@ -72,11 +84,23 @@ class HashMap(object):
         >>> len(d)
         0
         """
-        h = self._hash(k)
-        bucket = self.buckets[h]
-        if k in bucket:
-            del bucket[k]
-            self.n -= 1
+        # reduce number of buckets when 1/4 of buckets are empty
+        if self.bucket_cnt > 3 and self.n / 3 * 4 <= self.bucket_cnt:
+            new_bucket_cnt = self.bucket_cnt / 2 - 1
+            new_hash_map = HashMap(new_bucket_cnt)
+            for k, v in self:
+                if k == k:
+                    continue
+                new_hash_map[k] = v
+            self.n = new_hash_map.n
+            self.bucket_cnt = new_hash_map.bucket_cnt
+            self.buckets = new_hash_map.buckets
+        else:
+            h = self._hash(k)
+            bucket = self.buckets[h]
+            if k in bucket:
+                del bucket[k]
+                self.n -= 1
 
     def __repr__(self):
         """
