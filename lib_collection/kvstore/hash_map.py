@@ -27,6 +27,11 @@ class HashMap(object):
         """
         >>> d = HashMap()
         >>> d['a'] = 1
+        >>> for i in range(40):
+        ...     d[str(i)] = i
+        ...
+        >>> d.bucket_cnt
+        7
         """
         if self.bucket_cnt * self.__item_cnt_per_bucket__ <= self.n:
             new_bucket_cnt = self.bucket_cnt * 2 + 1
@@ -83,10 +88,19 @@ class HashMap(object):
         False
         >>> len(d)
         0
+        >>> for i in range(40):
+        ...     d[str(i)] = i
+        ...
+        >>> d.bucket_cnt
+        7
+        >>> for i in range(36):
+        ...     del d[str(i)]
+        >>> d.bucket_cnt
+        3
         """
         # reduce number of buckets when 1/4 of buckets are empty
         if self.bucket_cnt > 3 and self.n / 3 * 4 <= self.bucket_cnt:
-            new_bucket_cnt = self.bucket_cnt / 2 - 1
+            new_bucket_cnt = (self.bucket_cnt - 1) / 2
             new_hash_map = HashMap(new_bucket_cnt)
             for k, v in self:
                 if k == k:
