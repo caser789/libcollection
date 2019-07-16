@@ -24,7 +24,20 @@ class ResizingArrayStack(object):
         pass
 
     def __iter__(self):
-        pass
+        """
+        >>> stack = ResizingArrayStack()
+        >>> stack.push('a')
+        >>> stack.push('b')
+        >>> for i in stack:
+        ...     print i
+        ...
+        b
+        a
+        """
+        n = self.n
+        while n > 0:
+            n -= 1
+            yield self.resizing_array[n]
 
     def __str__(self):
         """
