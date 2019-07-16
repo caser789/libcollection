@@ -1,0 +1,55 @@
+class ResizingArrayStack(object):
+    """
+    This implementation uses a resizing array, which double the underlying array
+    when it is full and halves the underlying array when it is one-quarter full.
+    """
+
+    def __init__(self):
+        self.capacity = 2
+        self.resizing_array = [None] * self.capacity
+        self.n = 0
+
+    def __len__(self):
+        """
+        >>> stack = ResizingArrayStack()
+        >>> len(stack)
+        0
+        >>> stack.push('a')
+        >>> len(stack)
+        1
+        """
+        return self.n
+
+    def __contains__(self):
+        return False
+
+    def __iter__(self):
+        pass
+
+    def push(self, item):
+        """
+        >>> stack = ResizingArrayStack()
+        >>> stack.push('a')
+        """
+        self.resizing_array[self.n] = item
+        self.n += 1
+
+    def pop(self):
+        """
+        >>> stack = ResizingArrayStack()
+        >>> stack.pop()
+        Traceback (most recent call last):
+            ...
+        IndexError: pop from empty stack
+        """
+        if len(self) == 0:
+            raise IndexError('pop from empty stack')
+        self.n -= 1
+        return self.resizing_array[self.n]
+
+    @property
+    def top(self):
+        pass
+
+    def _resize(self, m):
+        pass
