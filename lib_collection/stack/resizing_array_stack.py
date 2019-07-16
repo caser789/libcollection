@@ -69,6 +69,10 @@ class ResizingArrayStack(object):
         """
         >>> stack = ResizingArrayStack()
         >>> stack.push('a')
+        >>> stack.push('b')
+        >>> stack.push('c')
+        >>> stack
+        ResizingArrayStack(['c', 'b', 'a'])
         """
         if self.n == self.capacity:
             self._resize(self.capacity*2)
