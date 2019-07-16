@@ -76,6 +76,12 @@ class ResizingArrayStack(object):
     def pop(self):
         """
         >>> stack = ResizingArrayStack()
+        >>> stack.push('a')
+        >>> stack.push('b')
+        >>> stack.pop()
+        'b'
+        >>> stack.pop()
+        'a'
         >>> stack.pop()
         Traceback (most recent call last):
             ...
