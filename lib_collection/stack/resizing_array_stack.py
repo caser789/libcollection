@@ -20,11 +20,23 @@ class ResizingArrayStack(object):
         """
         return self.n
 
-    def __contains__(self):
-        return False
+    def __contains__(self, i):
+        pass
 
     def __iter__(self):
         pass
+
+    def __str__(self):
+        """
+        >>> stack = ResizingArrayStack()
+        >>> stack.push('a')
+        >>> stack.push('b')
+        >>> stack
+        ResizingArrayStack(['b', 'a'])
+        """
+        return 'ResizingArrayStack([{}])'.format(', '.join(e for e in self))
+
+    __repr__ = __str__
 
     def push(self, item):
         """
