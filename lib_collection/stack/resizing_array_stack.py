@@ -94,9 +94,16 @@ class ResizingArrayStack(object):
         Traceback (most recent call last):
             ...
         IndexError: pop from empty stack
+        >>> stack.push('a')
+        >>> stack.top
+        'a'
+        >>> stack.push('b')
+        >>> stack.top
+        'b'
         """
         if len(self) == 0:
             raise IndexError('pop from empty stack')
+        return self.resizing_array[self.n-1]
 
     def _resize(self, m):
         pass
