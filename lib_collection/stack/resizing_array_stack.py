@@ -65,12 +65,14 @@ class ResizingArrayStack(object):
 
     __repr__ = __str__
 
-    def push(self, item):
+    def push(self, i):
         """
         >>> stack = ResizingArrayStack()
         >>> stack.push('a')
         """
-        self.resizing_array[self.n] = item
+        if self.n == self.capacity:
+            self._resize(self.capacity*2)
+        self.resizing_array[self.n] = i
         self.n += 1
 
     def pop(self):
@@ -112,4 +114,22 @@ class ResizingArrayStack(object):
         return self.resizing_array[self.n-1]
 
     def _resize(self, m):
-        pass
+        """
+        >>> stack = ResizingArrayStack()
+        >>> stack.push('a')
+        >>> stack.push('b')
+        >>> stack._resize(6)
+        >>> stack.resizing_array
+        ['a', 'b', None, None, None, None]
+        >>> stack.capacity
+        6
+        >>> len(stack)
+        2
+        >>> stack
+        ResizingArrayStack(['b', 'a'])
+        """
+        resizing_array = [None] * m
+        for i in range(self.n):
+            resizing_array[i]= self.resizing_array[i]
+        self.resizing_array = resizing_array
+        self.capacity = m
