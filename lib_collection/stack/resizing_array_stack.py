@@ -46,8 +46,10 @@ class ResizingArrayStack(object):
         >>> stack.push('b')
         >>> stack
         ResizingArrayStack(['b', 'a'])
+        >>> print stack
+        ResizingArrayStack(['b', 'a'])
         """
-        return 'ResizingArrayStack([{}])'.format(', '.join(e for e in self))
+        return 'ResizingArrayStack([{}])'.format(', '.join(repr(i) for i in self))
 
     __repr__ = __str__
 
