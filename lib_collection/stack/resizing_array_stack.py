@@ -49,7 +49,15 @@ class ResizingArrayStack(object):
 
     @property
     def top(self):
-        pass
+        """
+        >>> stack = ResizingArrayStack()
+        >>> stack.top
+        Traceback (most recent call last):
+            ...
+        IndexError: pop from empty stack
+        """
+        if len(self) == 0:
+            raise IndexError('pop from empty stack')
 
     def _resize(self, m):
         pass
