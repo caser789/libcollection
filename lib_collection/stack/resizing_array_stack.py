@@ -21,7 +21,19 @@ class ResizingArrayStack(object):
         return self.n
 
     def __contains__(self, i):
-        pass
+        """
+        >>> stack = ResizingArrayStack()
+        >>> stack.push('a')
+        >>> stack.push('b')
+        >>> 'a' in stack
+        True
+        >>> 'c' in stack
+        False
+        """
+        for j in self:
+            if j == i:
+                return True
+        return False
 
     def __iter__(self):
         """
