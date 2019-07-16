@@ -84,10 +84,40 @@ class ResizingArrayStack(object):
         >>> stack = ResizingArrayStack()
         >>> stack.push('a')
         >>> stack.push('b')
+        >>> stack.push('c')
+        >>> stack.push('d')
+        >>> stack.push('e')
+        >>> stack.push('f')
+        >>> stack.push('g')
+        >>> stack.push('h')
+        >>> stack.pop()
+        'h'
+        >>> stack.pop()
+        'g'
+        >>> stack.pop()
+        'f'
+        >>> stack.pop()
+        'e'
+        >>> stack.pop()
+        'd'
+        >>> stack.pop()
+        'c'
+        >>> len(stack)
+        2
+        >>> stack.capacity
+        8
         >>> stack.pop()
         'b'
+        >>> len(stack)
+        1
+        >>> stack.capacity
+        4
         >>> stack.pop()
         'a'
+        >>> len(stack)
+        0
+        >>> stack.capacity
+        2
         >>> stack.pop()
         Traceback (most recent call last):
             ...
@@ -95,6 +125,8 @@ class ResizingArrayStack(object):
         """
         if len(self) == 0:
             raise IndexError('pop from empty stack')
+        if len(self) * 4 <= self.capacity:
+            self._resize(self.capacity/2)
         self.n -= 1
         return self.resizing_array[self.n]
 
