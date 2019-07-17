@@ -6,4 +6,5 @@ common data structures
 
 ## stack
 
-* resizing_array_stack
+* ResizingArrayStack
+* LinkedStack
