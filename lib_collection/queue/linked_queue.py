@@ -14,7 +14,22 @@ class LinkedQueue(object):
         pass
 
     def __iter__(self):
-        pass
+        """
+        >>> q = LinkedQueue()
+        >>> q.enqueue('a')
+        >>> q.enqueue('b')
+        >>> q.enqueue('c')
+        >>> for i in q:
+        ...     print i
+        ...
+        a
+        b
+        c
+        """
+        n = self.head
+        while n.next is not None:
+            n = n.next
+            yield n.v
 
     def __str__(self):
         return ''
