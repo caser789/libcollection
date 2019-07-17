@@ -26,8 +26,20 @@ class LinkedStack(object):
     def __len__(self):
         return self.n
 
-    def __contains__(self):
-        pass
+    def __contains__(self, i):
+        """
+        >>> s = LinkedStack()
+        >>> s.push('a')
+        >>> s.push('b')
+        >>> 'a' in s
+        True
+        >>> 'c' in s
+        False
+        """
+        for j in self:
+            if j == i:
+                return True
+        return False
 
     def __iter__(self):
         """
