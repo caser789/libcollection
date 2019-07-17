@@ -30,7 +30,22 @@ class LinkedStack(object):
         pass
 
     def __iter__(self):
-        pass
+        """
+        >>> s = LinkedStack()
+        >>> s.push('a')
+        >>> s.push('b')
+        >>> s.push('c')
+        >>> for i in s:
+        ...     print i
+        ...
+        c
+        b
+        a
+        """
+        n = self.head.next
+        while n:
+            yield n.v
+            n = n.next
 
     def __str__(self):
         pass
