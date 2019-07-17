@@ -24,6 +24,19 @@ class LinkedStack(object):
         self.head = Node(None)
 
     def __len__(self):
+        """
+        >>> s = LinkedStack()
+        >>> len(s)
+        0
+        >>> s.push('a')
+        >>> s.push('b')
+        >>> len(s)
+        2
+        >>> s.pop()
+        'b'
+        >>> len(s)
+        1
+        """
         return self.n
 
     def __contains__(self, i):
@@ -60,7 +73,17 @@ class LinkedStack(object):
             n = n.next
 
     def __str__(self):
-        pass
+        """
+        >>> s = LinkedStack()
+        >>> s.push('a')
+        >>> s.push(2)
+        >>> s.push('c')
+        >>> s
+        LinkedStack(['c', 2, 'a'])
+        >>> print s
+        LinkedStack(['c', 2, 'a'])
+        """
+        return 'LinkedStack([{}])'.format(', '.join(repr(i) for i in self))
 
     __repr__ = __str__
 
