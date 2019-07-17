@@ -73,6 +73,15 @@ class LinkedQueue(object):
     def dequeue(self):
         """
         >>> q = LinkedQueue()
+        >>> q.enqueue('a')
+        >>> q.enqueue('b')
+        >>> q.enqueue('c')
+        >>> q.dequeue()
+        'a'
+        >>> q.dequeue()
+        'b'
+        >>> q.dequeue()
+        'c'
         >>> q.dequeue()
         Traceback (most recent call last):
             ...
@@ -80,6 +89,10 @@ class LinkedQueue(object):
         """
         if len(self) == 0:
             raise IndexError('dequeue from empty queue')
+        res = self.head.next.v
+        self.head.next = self.head.next.next
+        self.n -= 1
+        return res
 
     @property
     def top(self):
@@ -89,6 +102,13 @@ class LinkedQueue(object):
         Traceback (most recent call last):
             ...
         IndexError: top from empty queue
+        >>> q.enqueue('a')
+        >>> q.top
+        'a'
+        >>> q.enqueue('b')
+        >>> q.top
+        'a'
         """
         if len(self) == 0:
             raise IndexError('top from empty queue')
+        return self.head.next.v
