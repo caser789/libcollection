@@ -11,7 +11,18 @@ class LinkedQueue(object):
         return self.n
 
     def __contains__(self, i):
-        pass
+        """
+        >>> q = LinkedQueue()
+        >>> 'a' in q
+        False
+        >>> q.enqueue('a')
+        >>> 'a' in q
+        True
+        """
+        for j in self:
+            if i == j:
+                return True
+        return False
 
     def __iter__(self):
         """
@@ -32,7 +43,17 @@ class LinkedQueue(object):
             yield n.v
 
     def __str__(self):
-        return ''
+        """
+        >>> q = LinkedQueue()
+        >>> q.enqueue('a')
+        >>> q.enqueue(2)
+        >>> q.enqueue('c')
+        >>> q
+        LinkedQueue(['a', 2, 'c'])
+        >>> print q
+        LinkedQueue(['a', 2, 'c'])
+        """
+        return 'LinkedQueue([{}])'.format(', '.join(repr(i) for i in self))
 
     __repr__ = __str__
 
