@@ -24,7 +24,15 @@ class LinkedQueue(object):
         pass
 
     def dequeue(self):
-        pass
+        """
+        >>> q = LinkedQueue()
+        >>> q.dequeue()
+        Traceback (most recent call last):
+            ...
+        IndexError: dequeue from empty queue
+        """
+        if len(self) == 0:
+            raise IndexError('dequeue from empty queue')
 
     @property
     def top(self):
@@ -33,7 +41,7 @@ class LinkedQueue(object):
         >>> q.top
         Traceback (most recent call last):
             ...
-        IndexError: pop from empty queue
+        IndexError: top from empty queue
         """
         if len(self) == 0:
-            raise IndexError('pop from empty queue')
+            raise IndexError('top from empty queue')
