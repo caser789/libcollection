@@ -60,4 +60,12 @@ class LinkedStack(object):
 
     @property
     def top(self):
-        pass
+        """
+        >>> s = LinkedStack()
+        >>> s.top
+        Traceback (most recent call last):
+            ...
+        IndexError: pop from empty stack
+        """
+        if len(self) == 0:
+            raise IndexError('pop from empty stack')
