@@ -66,6 +66,10 @@ class LinkedStack(object):
         Traceback (most recent call last):
             ...
         IndexError: pop from empty stack
+        >>> s.push('a')
+        >>> s.top
+        'a'
         """
         if len(self) == 0:
             raise IndexError('pop from empty stack')
+        return self.head.next.v
