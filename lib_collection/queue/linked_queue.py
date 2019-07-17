@@ -5,6 +5,7 @@ class LinkedQueue(object):
 
     def __init__(self):
         self.n = 0
+        self.head = Node(None)
 
     def __len__(self):
         return self.n
@@ -21,7 +22,17 @@ class LinkedQueue(object):
     __repr__ = __str__
 
     def enqueue(self, i):
-        pass
+        """
+        >>> q = LinkedQueue()
+        >>> q.enqueue('a')
+        >>> q.enqueue('b')
+        """
+        node = Node(i)
+        n = self.head
+        while n.next is not None:
+            n = n.next
+        n.next = node
+        self.n += 1
 
     def dequeue(self):
         """
