@@ -8,6 +8,20 @@ class LinkedQueue(object):
         self.head = Node(None)
 
     def __len__(self):
+        """
+        >>> q = LinkedQueue()
+        >>> len(q)
+        0
+        >>> q.enqueue('a')
+        >>> q.enqueue('b')
+        >>> q.enqueue('c')
+        >>> len(q)
+        3
+        >>> q.dequeue()
+        'a'
+        >>> len(q)
+        2
+        """
         return self.n
 
     def __contains__(self, i):
