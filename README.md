@@ -8,3 +8,7 @@ common data structures
 
 * ResizingArrayStack
 * LinkedStack
+
+## queue
+
+* LinkedQueue
