@@ -40,6 +40,15 @@ class LinkedQueue(object):
     def dequeue(self):
         """
         >>> q = LinkedQueue()
+        >>> q.enqueue('a')
+        >>> q.enqueue('b')
+        >>> q.enqueue('c')
+        >>> q.dequeue()
+        'a'
+        >>> q.dequeue()
+        'b'
+        >>> q.dequeue()
+        'c'
         >>> q.dequeue()
         Traceback (most recent call last):
             ...
@@ -47,6 +56,10 @@ class LinkedQueue(object):
         """
         if self.head is None:
             raise IndexError('queue underflowed')
+        res = self.head.v
+        self.head = self.head.next
+        self.n -= 1
+        return res
 
     @property
     def top(self):
