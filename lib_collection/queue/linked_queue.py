@@ -50,5 +50,12 @@ class LinkedQueue(object):
 
     @property
     def top(self):
+        """
+        >>> q = LinkedQueue()
+        >>> q.top
+        Traceback (most recent call last):
+            ...
+        IndexError: queue underflowed
+        """
         if self.head is None:
             raise IndexError('queue underflowed')
