@@ -146,9 +146,20 @@ class ResizingArrayQueue(object):
         Traceback (most recent call last):
             ...
         IndexError: top from empty queue
+        >>> queue.enqueue('a')
+        >>> queue.top
+        'a'
+        >>> queue.enqueue('b')
+        >>> queue.top
+        'a'
+        >>> queue.dequeue()
+        'a'
+        >>> queue.top
+        'b'
         """
         if len(self) == 0:
             raise IndexError('top from empty queue')
+        return self.lst[self.head]
 
     def _resize(self, n):
         q = ResizingArrayQueue(capacity=n)
