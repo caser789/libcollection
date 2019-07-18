@@ -3,9 +3,24 @@ from lib_collection.node import Node
 
 class LinkedStack(object):
 
-    def __init__(self):
+    def __init__(self, lst=None):
+        """
+        >>> stack = LinkedStack(["a", 1, "b"])
+        >>> stack.pop()
+        'a'
+        >>> stack.push('c')
+        >>> stack
+        LinkedStack(['c', 1, 'b'])
+        """
         self.n = 0
         self.head = Node(None)
+
+        if lst:
+            stack = LinkedStack()
+            for e in lst[::-1]:
+                stack.push(e)
+            self.n = stack.n
+            self.head = stack.head
 
     def __len__(self):
         """
