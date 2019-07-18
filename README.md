@@ -12,3 +12,4 @@ common data structures
 ## queue
 
 * LinkedQueue
+* SimpleLinkedQueue
