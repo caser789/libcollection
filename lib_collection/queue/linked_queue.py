@@ -23,7 +23,19 @@ class LinkedQueue(object):
     __repr__ = __str__
 
     def enqueue(self, i):
-        pass
+        """
+        >>> q = LinkedQueue()
+        >>> q.enqueue('a')
+        >>> q.enqueue('b')
+        """
+        n = Node(i)
+        if self.head is None:
+            self.head = n
+            self.tail = n
+        else:
+            self.tail.next = n
+            self.tail = n
+        self.n += 1
 
     def dequeue(self):
         pass
