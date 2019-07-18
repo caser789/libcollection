@@ -59,6 +59,11 @@ class ResizingArrayQueue(object):
         >>> queue = ResizingArrayQueue()
         >>> queue.enqueue('a')
         >>> queue.enqueue('b')
+        >>> queue.enqueue('c')
+        >>> queue
+        ResizingArrayQueue(['a', 'b', 'c'])
+        >>> queue.capacity
+        4
         """
         if len(self) == self.capacity:
             self._resize(self.capacity*2)
