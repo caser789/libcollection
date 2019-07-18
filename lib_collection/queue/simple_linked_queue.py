@@ -3,9 +3,31 @@ from lib_collection.node import Node
 
 class SimpleLinkedQueue(object):
 
-    def __init__(self):
+    def __init__(self, lst=None):
+        """
+        >>> q = SimpleLinkedQueue(['a', 2, 'c'])
+        >>> q.top
+        'a'
+        >>> q.dequeue()
+        'a'
+        >>> q.dequeue()
+        2
+        >>> len(q)
+        1
+        >>> q.enqueue(4)
+        >>> q.enqueue('e')
+        >>> q
+        SimpleLinkedQueue(['c', 4, 'e'])
+        """
         self.n = 0
         self.head = Node(None)
+
+        if lst:
+            queue = SimpleLinkedQueue()
+            for e in lst:
+                queue.enqueue(e)
+            self.n = queue.n
+            self.head = queue.head
 
     def __len__(self):
         """
