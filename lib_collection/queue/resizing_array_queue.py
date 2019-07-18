@@ -1,19 +1,33 @@
 class ResizingArrayQueue(object):
 
-    def __init__(self, lst=None):
-        self.capacity = 2
+    def __init__(self, lst=None, capacity=2):
+        self.capacity = capacity
         self.lst = [None] * self.capacity
         self.head = 0
         self.tail = 0
 
     def __len__(self):
-        return self.tail - self.head
+        """
+        >>> queue = ResizingArrayQueue()
+        >>> len(queue)
+        0
+        >>> queue.enqueue('a')
+        >>> len(queue)
+        1
+        >>> queue.enqueue('b')
+        >>> len(queue)
+        2
+        """
+        res = self.tail - self.head
+        if res < 0:
+            res += self.capacity
+        return res
 
     def __contains__(self, i):
         return False
 
     def __iter__(self):
-        return []
+        pass
 
     def __repr__(self):
         return ''
@@ -24,6 +38,12 @@ class ResizingArrayQueue(object):
         >>> queue.enqueue('a')
         >>> queue.enqueue('b')
         """
+        if len(self) == self.capacity:
+            self._resize(self.capacity*2)
+
+        if self.tail == self.capacity:
+            self.tail = 0
+
         self.lst[self.tail] = i
         self.tail += 1
 
@@ -43,6 +63,13 @@ class ResizingArrayQueue(object):
         """
         if self.head == self.tail:
             raise IndexError('dequeue from empty queue')
+
+        if len(self) * 4 <= self.capacity:
+            self._resize(self.capacity/2)
+
+        if self.head == self.capacity:
+            self.head = 0
+
         res = self.lst[self.head]
         self.head += 1
         return res
@@ -60,4 +87,4 @@ class ResizingArrayQueue(object):
             raise IndexError('top from empty queue')
 
     def _resize(self, n):
-        pass
+        return
