@@ -1,7 +1,7 @@
 from lib_collection.node import Node
 
 
-class LinkedQueue(object):
+class SingleDirectionLinkedQueue(object):
 
     def __init__(self):
         self.n = 0
@@ -9,7 +9,7 @@ class LinkedQueue(object):
 
     def __len__(self):
         """
-        >>> q = LinkedQueue()
+        >>> q = SingleDirectionLinkedQueue()
         >>> len(q)
         0
         >>> q.enqueue('a')
@@ -26,7 +26,7 @@ class LinkedQueue(object):
 
     def __contains__(self, i):
         """
-        >>> q = LinkedQueue()
+        >>> q = SingleDirectionLinkedQueue()
         >>> 'a' in q
         False
         >>> q.enqueue('a')
@@ -40,7 +40,7 @@ class LinkedQueue(object):
 
     def __iter__(self):
         """
-        >>> q = LinkedQueue()
+        >>> q = SingleDirectionLinkedQueue()
         >>> q.enqueue('a')
         >>> q.enqueue('b')
         >>> q.enqueue('c')
@@ -58,22 +58,22 @@ class LinkedQueue(object):
 
     def __str__(self):
         """
-        >>> q = LinkedQueue()
+        >>> q = SingleDirectionLinkedQueue()
         >>> q.enqueue('a')
         >>> q.enqueue(2)
         >>> q.enqueue('c')
         >>> q
-        LinkedQueue(['a', 2, 'c'])
+        SingleDirectionLinkedQueue(['a', 2, 'c'])
         >>> print q
-        LinkedQueue(['a', 2, 'c'])
+        SingleDirectionLinkedQueue(['a', 2, 'c'])
         """
-        return 'LinkedQueue([{}])'.format(', '.join(repr(i) for i in self))
+        return 'SingleDirectionLinkedQueue([{}])'.format(', '.join(repr(i) for i in self))
 
     __repr__ = __str__
 
     def enqueue(self, i):
         """
-        >>> q = LinkedQueue()
+        >>> q = SingleDirectionLinkedQueue()
         >>> q.enqueue('a')
         >>> q.enqueue('b')
         """
@@ -86,7 +86,7 @@ class LinkedQueue(object):
 
     def dequeue(self):
         """
-        >>> q = LinkedQueue()
+        >>> q = SingleDirectionLinkedQueue()
         >>> q.enqueue('a')
         >>> q.enqueue('b')
         >>> q.enqueue('c')
@@ -111,7 +111,7 @@ class LinkedQueue(object):
     @property
     def top(self):
         """
-        >>> q = LinkedQueue()
+        >>> q = SingleDirectionLinkedQueue()
         >>> q.top
         Traceback (most recent call last):
             ...
