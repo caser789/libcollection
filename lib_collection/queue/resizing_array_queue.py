@@ -2,9 +2,13 @@ class ResizingArrayQueue(object):
 
     def __init__(self, lst=None):
         self.n = 0
+        self.capacity = 2
+        self.lst = [None] * self.capacity
+        self.head = 0
+        self.tail = 0
 
     def __len__(self):
-        return self.n
+        return self.tail - self.head
 
     def __contains__(self, i):
         return False
@@ -12,10 +16,8 @@ class ResizingArrayQueue(object):
     def __iter__(self):
         return []
 
-    def __str__(self):
+    def __repr__(self):
         return ''
-
-    __repr__ = __str__
 
     def enqueue(self, i):
         return
@@ -26,3 +28,6 @@ class ResizingArrayQueue(object):
     @property
     def top(self):
         return
+
+    def _resize(self, n):
+        pass

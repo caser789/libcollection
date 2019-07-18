@@ -71,7 +71,7 @@ class LinkedStack(object):
             yield n.v
             n = n.next
 
-    def __str__(self):
+    def __repr__(self):
         """
         >>> s = LinkedStack()
         >>> s.push('a')
@@ -83,8 +83,6 @@ class LinkedStack(object):
         LinkedStack(['c', 2, 'a'])
         """
         return 'LinkedStack([{}])'.format(', '.join(repr(i) for i in self))
-
-    __repr__ = __str__
 
     def push(self, i):
         """

@@ -81,7 +81,7 @@ class LinkedQueue(object):
             yield n.v
             n = n.next
 
-    def __str__(self):
+    def __repr__(self):
         """
         >>> q = LinkedQueue()
         >>> q.enqueue('a')
@@ -93,8 +93,6 @@ class LinkedQueue(object):
         LinkedQueue(['a', 2, 'c'])
         """
         return 'LinkedQueue([{}])'.format(', '.join(repr(i) for i in self))
-
-    __repr__ = __str__
 
     def enqueue(self, i):
         """

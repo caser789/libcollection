@@ -68,7 +68,7 @@ class ResizingArrayStack(object):
             n -= 1
             yield self.resizing_array[n]
 
-    def __str__(self):
+    def __repr__(self):
         """
         >>> stack = ResizingArrayStack()
         >>> stack.push('a')
@@ -79,8 +79,6 @@ class ResizingArrayStack(object):
         ResizingArrayStack(['b', 'a'])
         """
         return 'ResizingArrayStack([{}])'.format(', '.join(repr(i) for i in self))
-
-    __repr__ = __str__
 
     def push(self, i):
         """
