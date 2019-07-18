@@ -1,7 +1,7 @@
 from lib_collection.node import Node
 
 
-class SingleDirectionLinkedQueue(object):
+class SimpleLinkedQueue(object):
 
     def __init__(self):
         self.n = 0
@@ -9,7 +9,7 @@ class SingleDirectionLinkedQueue(object):
 
     def __len__(self):
         """
-        >>> q = SingleDirectionLinkedQueue()
+        >>> q = SimpleLinkedQueue()
         >>> len(q)
         0
         >>> q.enqueue('a')
@@ -26,7 +26,7 @@ class SingleDirectionLinkedQueue(object):
 
     def __contains__(self, i):
         """
-        >>> q = SingleDirectionLinkedQueue()
+        >>> q = SimpleLinkedQueue()
         >>> 'a' in q
         False
         >>> q.enqueue('a')
@@ -40,7 +40,7 @@ class SingleDirectionLinkedQueue(object):
 
     def __iter__(self):
         """
-        >>> q = SingleDirectionLinkedQueue()
+        >>> q = SimpleLinkedQueue()
         >>> q.enqueue('a')
         >>> q.enqueue('b')
         >>> q.enqueue('c')
@@ -58,22 +58,22 @@ class SingleDirectionLinkedQueue(object):
 
     def __str__(self):
         """
-        >>> q = SingleDirectionLinkedQueue()
+        >>> q = SimpleLinkedQueue()
         >>> q.enqueue('a')
         >>> q.enqueue(2)
         >>> q.enqueue('c')
         >>> q
-        SingleDirectionLinkedQueue(['a', 2, 'c'])
+        SimpleLinkedQueue(['a', 2, 'c'])
         >>> print q
-        SingleDirectionLinkedQueue(['a', 2, 'c'])
+        SimpleLinkedQueue(['a', 2, 'c'])
         """
-        return 'SingleDirectionLinkedQueue([{}])'.format(', '.join(repr(i) for i in self))
+        return 'SimpleLinkedQueue([{}])'.format(', '.join(repr(i) for i in self))
 
     __repr__ = __str__
 
     def enqueue(self, i):
         """
-        >>> q = SingleDirectionLinkedQueue()
+        >>> q = SimpleLinkedQueue()
         >>> q.enqueue('a')
         >>> q.enqueue('b')
         """
@@ -86,7 +86,7 @@ class SingleDirectionLinkedQueue(object):
 
     def dequeue(self):
         """
-        >>> q = SingleDirectionLinkedQueue()
+        >>> q = SimpleLinkedQueue()
         >>> q.enqueue('a')
         >>> q.enqueue('b')
         >>> q.enqueue('c')
@@ -111,7 +111,7 @@ class SingleDirectionLinkedQueue(object):
     @property
     def top(self):
         """
-        >>> q = SingleDirectionLinkedQueue()
+        >>> q = SimpleLinkedQueue()
         >>> q.top
         Traceback (most recent call last):
             ...
