@@ -4,10 +4,27 @@ class ResizingArrayStack(object):
     when it is full and halves the underlying array when it is one-quarter full.
     """
 
-    def __init__(self):
+    def __init__(self, lst=None):
+        """
+        >>> stack = ResizingArrayStack(["a", 1, "b"])
+        >>> stack.pop()
+        'a'
+        >>> stack.push('c')
+        >>> stack
+        ResizingArrayStack(['c', 1, 'b'])
+        """
         self.capacity = 2
         self.resizing_array = [None] * self.capacity
         self.n = 0
+
+        if lst:
+            stack = ResizingArrayStack()
+            for e in lst[::-1]:
+                stack.push(e)
+
+            self.capacity = stack.capacity
+            self.resizing_array = stack.resizing_array
+            self.n = stack.n
 
     def __len__(self):
         """
