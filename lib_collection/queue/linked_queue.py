@@ -15,7 +15,22 @@ class LinkedQueue(object):
         return False
 
     def __iter__(self):
-        return []
+        """
+        >>> q = LinkedQueue()
+        >>> q.enqueue('a')
+        >>> q.enqueue('b')
+        >>> q.enqueue('c')
+        >>> for i in q:
+        ...     print i
+        ...
+        a
+        b
+        c
+        """
+        n = self.head
+        while n:
+            yield n.v
+            n = n.next
 
     def __str__(self):
         return ''
