@@ -22,6 +22,18 @@ class ResizingArrayQueue(object):
         return self.n
 
     def __contains__(self, i):
+        """
+        >>> queue = ResizingArrayQueue()
+        >>> 'a' in queue
+        False
+        >>> queue.enqueue('a')
+        >>> queue.enqueue('b')
+        >>> 'a' in queue
+        True
+        """
+        for j in self:
+            if j == i:
+                return True
         return False
 
     def __iter__(self):
