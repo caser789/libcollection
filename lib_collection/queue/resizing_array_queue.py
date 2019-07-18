@@ -77,16 +77,22 @@ class ResizingArrayQueue(object):
     def dequeue(self):
         """
         >>> queue = ResizingArrayQueue()
-        >>> queue.enqueue('a')
-        >>> queue.enqueue('b')
-        >>> queue.dequeue()
-        'a'
-        >>> queue.dequeue()
-        'b'
         >>> queue.dequeue()
         Traceback (most recent call last):
             ...
         IndexError: dequeue from empty queue
+        >>> queue.enqueue('a')
+        >>> queue.enqueue('b')
+        >>> queue.enqueue('c')
+        >>> queue.dequeue()
+        'a'
+        >>> queue.dequeue()
+        'b'
+        >>> queue.enqueue('d')
+        >>> queue.enqueue('e')
+        >>> queue.enqueue('f')
+        >>> queue.lst
+        ['e', 'f', 'c', 'd']
         """
         if self.head == self.tail:
             raise IndexError('dequeue from empty queue')
