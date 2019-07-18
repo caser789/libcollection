@@ -38,8 +38,17 @@ class LinkedQueue(object):
         self.n += 1
 
     def dequeue(self):
-        pass
+        """
+        >>> q = LinkedQueue()
+        >>> q.dequeue()
+        Traceback (most recent call last):
+            ...
+        IndexError: queue underflowed
+        """
+        if self.head is None:
+            raise IndexError('queue underflowed')
 
     @property
     def top(self):
-        pass
+        if self.head is None:
+            raise IndexError('queue underflowed')
