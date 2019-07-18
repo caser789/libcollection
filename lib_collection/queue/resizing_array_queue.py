@@ -1,7 +1,6 @@
 class ResizingArrayQueue(object):
 
     def __init__(self, lst=None):
-        self.n = 0
         self.capacity = 2
         self.lst = [None] * self.capacity
         self.head = 0
@@ -20,7 +19,13 @@ class ResizingArrayQueue(object):
         return ''
 
     def enqueue(self, i):
-        return
+        """
+        >>> queue = ResizingArrayQueue()
+        >>> queue.enqueue('a')
+        >>> queue.enqueue('b')
+        """
+        self.lst[self.tail] = i
+        self.tail += 1
 
     def dequeue(self):
         return
