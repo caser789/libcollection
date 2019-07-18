@@ -13,3 +13,4 @@ common data structures
 
 * LinkedQueue
 * SimpleLinkedQueue
+* ResizingArrayQueue
