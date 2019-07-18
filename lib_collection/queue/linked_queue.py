@@ -69,6 +69,13 @@ class LinkedQueue(object):
         Traceback (most recent call last):
             ...
         IndexError: queue underflowed
+        >>> q.enqueue('a')
+        >>> q.top
+        'a'
+        >>> q.enqueue('b')
+        >>> q.top
+        'a'
         """
         if self.head is None:
             raise IndexError('queue underflowed')
+        return self.head.v
