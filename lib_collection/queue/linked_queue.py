@@ -3,10 +3,33 @@ from lib_collection.node import Node
 
 class LinkedQueue(object):
 
-    def __init__(self):
+    def __init__(self, lst=None):
+        """
+        >>> q = LinkedQueue(['a', 2, 'c'])
+        >>> q.top
+        'a'
+        >>> q.dequeue()
+        'a'
+        >>> q.dequeue()
+        2
+        >>> len(q)
+        1
+        >>> q.enqueue(4)
+        >>> q.enqueue('e')
+        >>> q
+        LinkedQueue(['c', 4, 'e'])
+        """
         self.n = 0
         self.head = None
         self.tail = None
+
+        if lst is not None:
+            q = LinkedQueue()
+            for e in lst:
+                q.enqueue(e)
+            self.n = q.n
+            self.head = q.head
+            self.tail = q.tail
 
     def __len__(self):
         """
