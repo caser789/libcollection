@@ -97,6 +97,20 @@ class ResizingArrayQueue(object):
         >>> queue.enqueue('g')
         >>> queue.capacity
         8
+        >>> queue.dequeue()
+        'c'
+        >>> queue.dequeue()
+        'd'
+        >>> queue.dequeue()
+        'e'
+        >>> queue.dequeue()
+        'f'
+        >>> queue.capacity
+        4
+        >>> queue.dequeue()
+        'g'
+        >>> queue.capacity
+        2
         """
         if len(self) == 0:
             raise IndexError('dequeue from empty queue')
