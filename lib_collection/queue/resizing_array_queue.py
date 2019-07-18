@@ -27,7 +27,20 @@ class ResizingArrayQueue(object):
         return False
 
     def __iter__(self):
-        pass
+        """
+        >>> queue = ResizingArrayQueue()
+        >>> queue.enqueue('a')
+        >>> queue.enqueue('b')
+        >>> for i in queue:
+        ...     print i
+        ...
+        a
+        b
+        """
+        n = self.head
+        for _ in range(len(self)):
+            yield self.lst[n]
+            n += 1
 
     def __repr__(self):
         return ''
