@@ -59,7 +59,17 @@ class LinkedQueue(object):
             n = n.next
 
     def __str__(self):
-        return ''
+        """
+        >>> q = LinkedQueue()
+        >>> q.enqueue('a')
+        >>> q.enqueue(2)
+        >>> q.enqueue('c')
+        >>> q
+        LinkedQueue(['a', 2, 'c'])
+        >>> print q
+        LinkedQueue(['a', 2, 'c'])
+        """
+        return 'LinkedQueue([{}])'.format(', '.join(repr(i) for i in self))
 
     __repr__ = __str__
 
