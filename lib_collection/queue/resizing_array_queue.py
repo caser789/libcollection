@@ -43,7 +43,16 @@ class ResizingArrayQueue(object):
             n += 1
 
     def __repr__(self):
-        return ''
+        """
+        >>> queue = ResizingArrayQueue()
+        >>> queue.enqueue('a')
+        >>> queue.enqueue('b')
+        >>> queue
+        ResizingArrayQueue(['a', 'b'])
+        >>> print queue
+        ResizingArrayQueue(['a', 'b'])
+        """
+        return 'ResizingArrayQueue([{}])'.format(', '.join(repr(i) for i in self))
 
     def enqueue(self, i):
         """
@@ -100,4 +109,11 @@ class ResizingArrayQueue(object):
             raise IndexError('top from empty queue')
 
     def _resize(self, n):
-        return
+        q = ResizingArrayQueue(capacity=n)
+        for e in self:
+            q.enqueue(e)
+
+        self.capacity = q.capacity
+        self.lst = q.lst
+        self.head = q.head
+        self.tail = q.tail
