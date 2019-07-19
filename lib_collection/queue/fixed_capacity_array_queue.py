@@ -43,9 +43,21 @@ class FixedCapacityArrayQueue(object):
 
     def __repr__(self):
         """
-        >>> q = FixedCapacityArrayQueue(capacity=0)
+        >>> q = FixedCapacityArrayQueue(capacity=4)
+        >>> q.enqueue('a')
+        >>> q.enqueue('b')
+        >>> q.enqueue('c')
+        >>> q.dequeue()
+        'a'
+        >>> q.dequeue()
+        'b'
+        >>> q.enqueue('d')
+        >>> q.enqueue('e')
+        >>> q.enqueue('f')
+        >>> q.lst
+        ['e', 'f', 'c', 'd']
         >>> q
-        FixedCapacityArrayQueue(['a'])
+        FixedCapacityArrayQueue(['c', 'd', 'e', 'f'])
         """
         return 'FixedCapacityArrayQueue([{}])'.format(', '.join(repr(i) for i in self))
 
