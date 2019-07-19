@@ -8,6 +8,25 @@ class FixedCapacityArrayQueue(object):
         self.tail = 0
 
     def __len__(self):
+        """
+        >>> q = FixedCapacityArrayQueue(capacity=4)
+        >>> len(q)
+        0
+        >>> q.enqueue('a')
+        >>> q.enqueue('b')
+        >>> q.enqueue('c')
+        >>> q.dequeue()
+        'a'
+        >>> q.dequeue()
+        'b'
+        >>> len(q)
+        1
+        >>> q.enqueue('d')
+        >>> q.enqueue('e')
+        >>> q.enqueue('f')
+        >>> len(q)
+        4
+        """
         return self.n
 
     def __contains__(self, i):
