@@ -37,7 +37,15 @@ class SequentialSearchKVStore(object):
         return self.n
 
     def __contains__(self, key):
-        return False
+        """
+        >>> d = SequentialSearchKVStore()
+        >>> 'a' in d
+        False
+        >>> d['a'] = 1
+        >>> 'a' in d
+        True
+        """
+        return self._get_node(key) is not None
 
     def __getitem__(self, key):
         """
