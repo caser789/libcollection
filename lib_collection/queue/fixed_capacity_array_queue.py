@@ -1,11 +1,25 @@
 class FixedCapacityArrayQueue(object):
 
     def __init__(self, lst=None, capacity=5):
+        """
+        >>> q = FixedCapacityArrayQueue(['a', 'b', 'c'])
+        >>> q
+        FixedCapacityArrayQueue(['a', 'b', 'c'])
+        """
         self.capacity = capacity
         self.lst = [None] * capacity
         self.n = 0
         self.head = 0
         self.tail = 0
+
+        if lst:
+            q = FixedCapacityArrayQueue(capacity=capacity)
+            for i in lst:
+                q.enqueue(i)
+            self.lst = q.lst
+            self.n = q.n
+            self.head = q.head
+            self.tail = q.tail
 
     def __len__(self):
         """
