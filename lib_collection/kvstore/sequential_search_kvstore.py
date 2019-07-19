@@ -16,10 +16,19 @@ class KVNode(object):
 class SequentialSearchKVStore(object):
 
     def __init__(self, d=None):
+        """
+        >>> d = SequentialSearchKVStore({'b': 2, 'c': 3, 'a': 1})
+        >>> d
+        SequentialSearchKVStore({'b': 2, 'c': 3, 'a': 1})
+        """
         self.n = 0
         self.head = None
         if d:
-            pass
+            store = SequentialSearchKVStore()
+            for k, v in d.items():
+                store[k] = v
+            self.n = store.n
+            self.head = store.head
 
     def __len__(self):
         """
@@ -116,13 +125,13 @@ class SequentialSearchKVStore(object):
             yield n.key
             n = n.next
 
-    def iteritems(self):
+    def items(self):
         """
         >>> d = SequentialSearchKVStore()
         >>> d['a'] = 1
         >>> d['b'] = 2
         >>> d['c'] = 3
-        >>> for k, v in d.iteritems():
+        >>> for k, v in d.items():
         ...     print k, v
         ...
         c 3
@@ -145,7 +154,7 @@ class SequentialSearchKVStore(object):
         """
         s = ', '.join('{}: {}'.format(
             repr(k), repr(v))
-            for k, v in self.iteritems()
+            for k, v in self.items()
         )
         return 'SequentialSearchKVStore({%s})' % s
 
