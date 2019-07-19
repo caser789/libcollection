@@ -29,7 +29,15 @@ class FixedCapacityArrayQueue(object):
             raise IndexError('queue overflow')
 
     def dequeue(self):
-        pass
+        """
+        >>> q = FixedCapacityArrayQueue(capacity=0)
+        >>> q.dequeue()
+        Traceback (most recent call last):
+            ...
+        IndexError: queue underflow
+        """
+        if len(self) == 0:
+            raise IndexError('queue underflow')
 
     @property
     def top(self):
