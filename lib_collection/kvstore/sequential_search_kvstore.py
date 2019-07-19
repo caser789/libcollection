@@ -80,8 +80,21 @@ class SequentialSearchKVStore(object):
             self.head = node
             self.n += 1
 
-    def __del__(self, key):
-        pass
+    def __delitem__(self, key):
+        """
+        >>> d = SequentialSearchKVStore()
+        >>> d['a'] = 1
+        >>> 'a' in d
+        True
+        >>> len(d)
+        1
+        >>> del d['a']
+        >>> 'a' in d
+        False
+        >>> len(d)
+        0
+        """
+        self.head = self._delete_node(self.head, key)
 
     def __iter__(self):
         pass
@@ -95,3 +108,12 @@ class SequentialSearchKVStore(object):
             if n.key == key:
                 return n
             n = n.next
+
+    def _delete_node(self, node, key):
+        if node is None:
+            return
+        if node.key == key:
+            self.n -= 1
+            return node.next
+        node.next = self._delete_node(node.next, key)
+        return node
