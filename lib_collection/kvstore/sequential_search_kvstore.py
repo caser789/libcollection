@@ -15,9 +15,11 @@ class KVNode(object):
 
 class SequentialSearchKVStore(object):
 
-    def __init__(self):
+    def __init__(self, d=None):
         self.n = 0
         self.head = None
+        if d:
+            pass
 
     def __len__(self):
         """
@@ -97,10 +99,55 @@ class SequentialSearchKVStore(object):
         self.head = self._delete_node(self.head, key)
 
     def __iter__(self):
-        pass
+        """
+        >>> d = SequentialSearchKVStore()
+        >>> d['a'] = 1
+        >>> d['b'] = 2
+        >>> d['c'] = 3
+        >>> for i in d:
+        ...     print i
+        ...
+        c
+        b
+        a
+        """
+        n = self.head
+        while n:
+            yield n.key
+            n = n.next
+
+    def iteritems(self):
+        """
+        >>> d = SequentialSearchKVStore()
+        >>> d['a'] = 1
+        >>> d['b'] = 2
+        >>> d['c'] = 3
+        >>> for k, v in d.iteritems():
+        ...     print k, v
+        ...
+        c 3
+        b 2
+        a 1
+        """
+        n = self.head
+        while n:
+            yield n.key, n.value
+            n = n.next
 
     def __repr__(self):
-        return ''
+        """
+        >>> d = SequentialSearchKVStore()
+        >>> d['a'] = 1
+        >>> d['b'] = 2
+        >>> d['c'] = 3
+        >>> d
+        SequentialSearchKVStore({'c': 3, 'b': 2, 'a': 1})
+        """
+        s = ', '.join('{}: {}'.format(
+            repr(k), repr(v))
+            for k, v in self.iteritems()
+        )
+        return 'SequentialSearchKVStore({%s})' % s
 
     def _get_node(self, key):
         n = self.head
