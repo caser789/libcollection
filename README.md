@@ -15,3 +15,7 @@ common data structures
 * SimpleLinkedQueue
 * ResizingArrayQueue
 * FixedCapacityArrayQueue
+
+## kvstore
+
+* SequentialSearchKVStore
