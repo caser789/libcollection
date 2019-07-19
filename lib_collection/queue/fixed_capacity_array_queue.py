@@ -2,6 +2,7 @@ class FixedCapacityArrayQueue(object):
 
     def __init__(self, lst=None, capacity=5):
         self.capacity = capacity
+        self.lst = [None] * capacity
         self.n = 0
 
     def __len__(self):
@@ -17,7 +18,15 @@ class FixedCapacityArrayQueue(object):
         return ''
 
     def enqueue(self, i):
-        pass
+        """
+        >>> q = FixedCapacityArrayQueue(capacity=0)
+        >>> q.enqueue('a')
+        Traceback (most recent call last):
+            ...
+        IndexError: queue overflow
+        """
+        if len(self) == self.capacity:
+            raise IndexError('queue overflow')
 
     def dequeue(self):
         pass
