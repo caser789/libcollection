@@ -53,9 +53,24 @@ class FixedCapacityArrayQueue(object):
         Traceback (most recent call last):
             ...
         IndexError: queue underflow
+        >>> q = FixedCapacityArrayQueue(capacity=2)
+        >>> q.enqueue('a')
+        >>> q.enqueue('b')
+        >>> q.dequeue()
+        'a'
+        >>> q.enqueue('c')
+        >>> q.dequeue()
+        'b'
+        >>> q.enqueue('d')
+        >>> q.dequeue()
+        'c'
         """
         if len(self) == 0:
             raise IndexError('queue underflow')
+        res = self.lst[self.head]
+        self.head = (self.head + 1) % self.capacity
+        self.n -= 1
+        return res
 
     @property
     def top(self):
