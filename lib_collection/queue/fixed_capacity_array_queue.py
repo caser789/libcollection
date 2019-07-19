@@ -14,7 +14,32 @@ class FixedCapacityArrayQueue(object):
         return False
 
     def __iter__(self):
-        return iter(['a'])
+        """
+        >>> q = FixedCapacityArrayQueue(capacity=4)
+        >>> q.enqueue('a')
+        >>> q.enqueue('b')
+        >>> q.enqueue('c')
+        >>> q.dequeue()
+        'a'
+        >>> q.dequeue()
+        'b'
+        >>> q.enqueue('d')
+        >>> q.enqueue('e')
+        >>> q.enqueue('f')
+        >>> q.lst
+        ['e', 'f', 'c', 'd']
+        >>> for i in q:
+        ...     print i
+        ...
+        c
+        d
+        e
+        f
+        """
+        n = self.head
+        for i in range(len(self)):
+            yield self.lst[n]
+            n = (n+1) % self.capacity
 
     def __repr__(self):
         """
