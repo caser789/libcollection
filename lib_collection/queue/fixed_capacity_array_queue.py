@@ -12,10 +12,15 @@ class FixedCapacityArrayQueue(object):
         return False
 
     def __iter__(self):
-        return []
+        return iter(['a'])
 
     def __repr__(self):
-        return ''
+        """
+        >>> q = FixedCapacityArrayQueue(capacity=0)
+        >>> q
+        FixedCapacityArrayQueue(['a'])
+        """
+        return 'FixedCapacityArrayQueue([{}])'.format(', '.join(repr(i) for i in self))
 
     def enqueue(self, i):
         """
