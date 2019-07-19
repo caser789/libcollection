@@ -11,6 +11,17 @@ class FixedCapacityArrayQueue(object):
         return self.n
 
     def __contains__(self, i):
+        """
+        >>> q = FixedCapacityArrayQueue(capacity=4)
+        >>> 'a' in q
+        False
+        >>> q.enqueue('a')
+        >>> 'a' in q
+        True
+        """
+        for j in self:
+            if i == j:
+                return True
         return False
 
     def __iter__(self):
