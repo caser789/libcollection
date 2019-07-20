@@ -28,6 +28,55 @@ class BinarySearchKVStore(object):
         pass
 
     def __setitem__(self, key, value):
+        """
+        >>> # 1. test key in keys
+        >>> d = BinarySearchKVStore()
+        >>> d.keys = [1, 2]
+        >>> d.values = ['a', 'b']
+        >>> d.n = 2
+        >>> d[1] = 'c'
+        >>> d.values = ['c', 2]
+        >>> # 2. test full and resize
+        >>> d = BinarySearchKVStore()
+        >>> d.keys = [1, 2]
+        >>> d.values = ['a', 'b']
+        >>> d.n = 2
+        >>> d[3] = 'c'
+        >>> d.keys
+        [1, 2, 3, NoneNode()]
+        >>> d.capacity
+        4
+        >>> # 3. test insert new key in the end
+        >>> d = BinarySearchKVStore()
+        >>> d.keys = [1, 2]
+        >>> d.values = ['a', 'b']
+        >>> d.n = 2
+        >>> d[3] = 'c'
+        >>> d.keys
+        [1, 2, 3, NoneNode()]
+        >>> d.values
+        ['a', 'b', 'c', NoneNode()]
+        >>> # 4. test insert new key in the middle
+        >>> d = BinarySearchKVStore()
+        >>> d.keys = [1, 3]
+        >>> d.values = ['a', 'c']
+        >>> d.n = 2
+        >>> d[2] = 'b'
+        >>> d.keys
+        [1, 2, 3, NoneNode()]
+        >>> d.values
+        ['a', 'b', 'c', NoneNode()]
+        >>> # 5. test insert new key in the head
+        >>> d = BinarySearchKVStore()
+        >>> d.keys = [2, 3]
+        >>> d.values = ['b', 'c']
+        >>> d.n = 2
+        >>> d[1] = 'a'
+        >>> d.keys
+        [1, 2, 3, NoneNode()]
+        >>> d.values
+        ['a', 'b', 'c', NoneNode()]
+        """
         i = self.get_index(key)
 
         # key already in keys
@@ -38,6 +87,16 @@ class BinarySearchKVStore(object):
         # keys are full
         if len(self) == self.capacity:
             self._resize(self.capacity*2)
+
+        # make space for the new key
+        for j in range(len(self), i, -1):
+            self.keys[j] = self.keys[j-1]
+            self.values[j] = self.values[j-1]
+
+        # insert new key
+        self.keys[i] = key
+        self.values[i] = value
+        self.n += 1
 
     def __getitem__(self, key):
         pass
