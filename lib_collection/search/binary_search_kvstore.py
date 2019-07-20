@@ -110,9 +110,7 @@ class BinarySearchKVStore(object):
         """
         if len(self) == 0:
             raise IndexError('underflow')
-        self.n -= 1
-        self.keys[self.n] = none
-        self.values[self.n] = none
+        del self[self.max]
 
     def del_min(self):
         """
@@ -122,9 +120,25 @@ class BinarySearchKVStore(object):
         Traceback (most recent call last):
             ...
         IndexError: underflow
+        >>> # 2. test del_max
+        >>> d = BinarySearchKVStore()
+        >>> d['b'] = 2
+        >>> d['c'] = 1
+        >>> d['a'] = 3
+        >>> d.del_min()
+        >>> d.min
+        'b'
+        >>> len(d)
+        2
+        >>> d.del_min()
+        >>> d.min
+        'c'
+        >>> len(d)
+        1
         """
         if len(self) == 0:
             raise IndexError('underflow')
+        del self[self.min]
 
     def __setitem__(self, key, value):
         """
