@@ -357,6 +357,12 @@ class BinarySearchKVStore(object):
         >>> d['b'] = 2
         >>> d['c'] = 1
         >>> d['a'] = 3
+        >>> d.get_key_at_index(0)
+        'a'
+        >>> d.get_key_at_index(1)
+        'b'
+        >>> d.get_key_at_index(2)
+        'c'
         >>> d.get_key_at_index(3)
         Traceback (most recent call last):
             ...
@@ -364,6 +370,7 @@ class BinarySearchKVStore(object):
         """
         if not 0 <= i < len(self):
             raise IndexError(i)
+        return self.keys[i]
 
     def _resize(self, capacity):
         """
