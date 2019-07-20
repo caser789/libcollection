@@ -372,6 +372,29 @@ class BinarySearchKVStore(object):
             raise IndexError(i)
         return self.keys[i]
 
+    def floor(self, key):
+        """
+        Return the largest key in kvstore that is less than or equal to key
+        >>> d = BinarySearchKVStore()
+        >>> d[1] = 'a'
+        >>> d[2] = 'b'
+        >>> d[3] = 'c'
+        >>> d.floor(2)
+        2
+        >>> d.floor(1.1)
+        1
+        >>> d.floor(4)
+        3
+        >>> d.floor(0.9)
+
+        """
+        i = self.index(key)
+        if i < len(self) and self.keys[i] == key:
+            return self.keys[i]
+        elif i == 0:
+            return  # so key in this kvstore cannot be None
+        return self.keys[i-1]
+
     def _resize(self, capacity):
         """
         >>> # 1. test resize up
