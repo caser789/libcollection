@@ -45,7 +45,6 @@ class BinarySearchKVStore(object):
         if len(self) == 0:
             raise IndexError('underflow')
 
-
     def __setitem__(self, key, value):
         """
         >>> # 1. test key in keys
@@ -96,7 +95,7 @@ class BinarySearchKVStore(object):
         >>> d.values
         ['a', 'b', 'c', NoneNode()]
         """
-        i = self.get_index(key)
+        i = self.index(key)
 
         # key already in keys
         if i < len(self) and self.keys[i] == key:
@@ -129,16 +128,16 @@ class BinarySearchKVStore(object):
     def del_min(self):
         pass
 
-    def get_index(self, key):
+    def index(self, key):
         """
         >>> d = BinarySearchKVStore()
         >>> d.n = 3
         >>> d.keys = [1, 2, 3]
-        >>> d.get_index(2)
+        >>> d.index(2)
         1
-        >>> d.get_index(1.5)
+        >>> d.index(1.5)
         1
-        >>> d.get_index(2.5)
+        >>> d.index(2.5)
         2
         """
         lo = 0
