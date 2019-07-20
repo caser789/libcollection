@@ -189,6 +189,18 @@ class BinarySearchKVStore(object):
         if len(self) * 4 <= self.capacity and len(self):
             self._resize(self.capacity//2)
 
+    def __repr__(self):
+        """
+        >>> d = BinarySearchKVStore()
+        >>> d['b'] = 2
+        >>> d['a'] = 3
+        >>> d['c'] = 1
+        >>> d
+        BinarySearchKVStore({'a': 3, 'b': 2, 'c': 1})
+        """
+        s = ', '.join('{}: {}'.format(repr(k), v) for k, v in self.items())
+        return 'BinarySearchKVStore({%s})' % s
+
     def __iter__(self):
         """
         >>> d = BinarySearchKVStore()
