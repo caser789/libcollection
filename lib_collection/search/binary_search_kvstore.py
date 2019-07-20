@@ -14,6 +14,14 @@ class BinarySearchKVStore(object):
         self.capacity = capacity
 
     def __len__(self):
+        """
+        >>> d = BinarySearchKVStore()
+        >>> len(d)
+        0
+        >>> d['a'] = 1
+        >>> len(d)
+        1
+        """
         return self.n
 
     def __contains__(self, key):
