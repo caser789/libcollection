@@ -117,7 +117,18 @@ class BinarySearchKVStore(object):
         self.n += 1
 
     def __getitem__(self, key):
-        pass
+        """
+        >>> d = BinarySearchKVStore()
+        >>> d['a'] = 1
+        >>> d['b'] = 2
+        >>> d['a']
+        1
+        >>> d['b']
+        2
+        """
+        i = self.index(key)
+        if i < len(self) and self.keys[i] == key:
+            return self.values[i]
 
     def __delitem__(self, key):
         pass
@@ -154,7 +165,7 @@ class BinarySearchKVStore(object):
 
     def _resize(self, capacity):
         """
-        # test resize up
+        >>> # 1. test resize up
         >>> d = BinarySearchKVStore()
         >>> d.n = 2
         >>> d.keys = [1, 2]
@@ -164,7 +175,7 @@ class BinarySearchKVStore(object):
         [1, 2, NoneNode(), NoneNode()]
         >>> d.values
         ['a', 'b', NoneNode(), NoneNode()]
-        >>> # test resize Down
+        >>> # 2. test resize Down
         >>> d = BinarySearchKVStore()
         >>> d.n = 2
         >>> d.keys = [1, 2, NoneNode(), NoneNode(), NoneNode(), NoneNode(), NoneNode(), NoneNode()]
