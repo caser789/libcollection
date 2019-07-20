@@ -73,9 +73,15 @@ class BinarySearchKVStore(object):
         Traceback (most recent call last):
             ...
         IndexError: underflow
+        >>> d['a'] = 3
+        >>> d['c'] = 1
+        >>> d['b'] = 2
+        >>> d.max
+        'c'
         """
         if len(self) == 0:
             raise IndexError('underflow')
+        return self.keys[self.n-1]
 
     def __setitem__(self, key, value):
         """
