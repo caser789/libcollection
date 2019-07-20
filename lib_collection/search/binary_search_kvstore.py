@@ -1,5 +1,6 @@
 class NoneNode(object):
-    pass
+    def __repr__(self):
+        return 'NoneNode()'
 
 
 none = NoneNode()
@@ -28,6 +29,15 @@ class BinarySearchKVStore(object):
 
     def __setitem__(self, key, value):
         i = self.get_index(key)
+
+        # key already in keys
+        if i < len(self) and self.keys[i] == key:
+            self.values[i] = value
+            return
+
+        # keys are full
+        if len(self) == self.capacity:
+            self._resize(self.capacity*2)
 
     def __getitem__(self, key):
         pass
@@ -66,4 +76,34 @@ class BinarySearchKVStore(object):
         return lo
 
     def _resize(self, capacity):
-        pass
+        """
+        # test resize up
+        >>> d = BinarySearchKVStore()
+        >>> d.n = 2
+        >>> d.keys = [1, 2]
+        >>> d.values = ['a', 'b']
+        >>> d._resize(4)
+        >>> d.keys
+        [1, 2, NoneNode(), NoneNode()]
+        >>> d.values
+        ['a', 'b', NoneNode(), NoneNode()]
+        >>> # test resize Down
+        >>> d = BinarySearchKVStore()
+        >>> d.n = 2
+        >>> d.keys = [1, 2, NoneNode(), NoneNode(), NoneNode(), NoneNode(), NoneNode(), NoneNode()]
+        >>> d.values = ['a', 'b', NoneNode(), NoneNode(), NoneNode(), NoneNode(), NoneNode(), NoneNode()]
+        >>> d._resize(2)
+        >>> d.keys
+        [1, 2]
+        >>> d.values
+        ['a', 'b']
+        """
+        keys = [none] * capacity
+        values = [none] * capacity
+        for i in range(len(self)):
+            keys[i] = self.keys[i]
+            values[i] = self.values[i]
+
+        self.keys = keys
+        self.values = values
+        self.capacity = capacity
