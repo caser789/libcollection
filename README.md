@@ -16,6 +16,7 @@ common data structures
 * ResizingArrayQueue
 * FixedCapacityArrayQueue
 
-## kvstore
+## Search
 
 * SequentialSearchKVStore
+* BinarySearchKVStore
