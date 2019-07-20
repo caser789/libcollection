@@ -46,100 +46,6 @@ class BinarySearchKVStore(object):
             return True
         return False
 
-    @property
-    def min(self):
-        """
-        >>> # 1. test get min from empty raise underflow error
-        >>> d = BinarySearchKVStore()
-        >>> d.min
-        Traceback (most recent call last):
-            ...
-        IndexError: underflow
-        >>> # 2. test get min
-        >>> d['b'] = 2
-        >>> d['a'] = 3
-        >>> d.min
-        'a'
-        """
-        if len(self) == 0:
-            raise IndexError('underflow')
-        return self.keys[0]
-
-    @property
-    def max(self):
-        """
-        >>> # 1. test get max from empty raise underflow error
-        >>> d = BinarySearchKVStore()
-        >>> d.max
-        Traceback (most recent call last):
-            ...
-        IndexError: underflow
-        >>> # 2. test get max
-        >>> d['a'] = 3
-        >>> d['c'] = 1
-        >>> d['b'] = 2
-        >>> d.max
-        'c'
-        """
-        if len(self) == 0:
-            raise IndexError('underflow')
-        return self.keys[self.n-1]
-
-    def del_max(self):
-        """
-        >>> # 1. test del_max from empty kvstore raise index error
-        >>> d = BinarySearchKVStore()
-        >>> d.del_max()
-        Traceback (most recent call last):
-            ...
-        IndexError: underflow
-        >>> # 2. test del_max
-        >>> d['b'] = 2
-        >>> d['c'] = 1
-        >>> d['a'] = 3
-        >>> d.del_max()
-        >>> d.max
-        'b'
-        >>> len(d)
-        2
-        >>> d.del_max()
-        >>> d.max
-        'a'
-        >>> len(d)
-        1
-        """
-        if len(self) == 0:
-            raise IndexError('underflow')
-        del self[self.max]
-
-    def del_min(self):
-        """
-        >>> # 1. test del_max from empty kvstore raise index error
-        >>> d = BinarySearchKVStore()
-        >>> d.del_min()
-        Traceback (most recent call last):
-            ...
-        IndexError: underflow
-        >>> # 2. test del_max
-        >>> d = BinarySearchKVStore()
-        >>> d['b'] = 2
-        >>> d['c'] = 1
-        >>> d['a'] = 3
-        >>> d.del_min()
-        >>> d.min
-        'b'
-        >>> len(d)
-        2
-        >>> d.del_min()
-        >>> d.min
-        'c'
-        >>> len(d)
-        1
-        """
-        if len(self) == 0:
-            raise IndexError('underflow')
-        del self[self.min]
-
     def __setitem__(self, key, value):
         """
         >>> # 1. test key in keys
@@ -306,6 +212,100 @@ class BinarySearchKVStore(object):
             else:
                 lo = mid + 1
         return lo
+
+    @property
+    def min(self):
+        """
+        >>> # 1. test get min from empty raise underflow error
+        >>> d = BinarySearchKVStore()
+        >>> d.min
+        Traceback (most recent call last):
+            ...
+        IndexError: underflow
+        >>> # 2. test get min
+        >>> d['b'] = 2
+        >>> d['a'] = 3
+        >>> d.min
+        'a'
+        """
+        if len(self) == 0:
+            raise IndexError('underflow')
+        return self.keys[0]
+
+    @property
+    def max(self):
+        """
+        >>> # 1. test get max from empty raise underflow error
+        >>> d = BinarySearchKVStore()
+        >>> d.max
+        Traceback (most recent call last):
+            ...
+        IndexError: underflow
+        >>> # 2. test get max
+        >>> d['a'] = 3
+        >>> d['c'] = 1
+        >>> d['b'] = 2
+        >>> d.max
+        'c'
+        """
+        if len(self) == 0:
+            raise IndexError('underflow')
+        return self.keys[self.n-1]
+
+    def del_max(self):
+        """
+        >>> # 1. test del_max from empty kvstore raise index error
+        >>> d = BinarySearchKVStore()
+        >>> d.del_max()
+        Traceback (most recent call last):
+            ...
+        IndexError: underflow
+        >>> # 2. test del_max
+        >>> d['b'] = 2
+        >>> d['c'] = 1
+        >>> d['a'] = 3
+        >>> d.del_max()
+        >>> d.max
+        'b'
+        >>> len(d)
+        2
+        >>> d.del_max()
+        >>> d.max
+        'a'
+        >>> len(d)
+        1
+        """
+        if len(self) == 0:
+            raise IndexError('underflow')
+        del self[self.max]
+
+    def del_min(self):
+        """
+        >>> # 1. test del_max from empty kvstore raise index error
+        >>> d = BinarySearchKVStore()
+        >>> d.del_min()
+        Traceback (most recent call last):
+            ...
+        IndexError: underflow
+        >>> # 2. test del_max
+        >>> d = BinarySearchKVStore()
+        >>> d['b'] = 2
+        >>> d['c'] = 1
+        >>> d['a'] = 3
+        >>> d.del_min()
+        >>> d.min
+        'b'
+        >>> len(d)
+        2
+        >>> d.del_min()
+        >>> d.min
+        'c'
+        >>> len(d)
+        1
+        """
+        if len(self) == 0:
+            raise IndexError('underflow')
+        del self[self.min]
 
     def _resize(self, capacity):
         """
