@@ -416,6 +416,28 @@ class BinarySearchKVStore(object):
             return
         return self.keys[i]
 
+    def size(self, key1, key2):
+        """
+        return the numbers of keys in this kvstore that min(key1, key2) <= key <= max(key1, key2)
+        >>> d = BinarySearchKVStore()
+        >>> d[1] = 'a'
+        >>> d[2] = 'b'
+        >>> d[3] = 'c'
+        >>> d.size(1.5, 2.5)
+        1
+        >>> d.size(1.5, 3)
+        2
+        >>> d.size(1, 3)
+        3
+        """
+        lo = min(key1, key2)
+        hi = max(key1, key2)
+        i = self.index(lo)
+        j = self.index(hi)
+        if hi in self:
+            return j - i + 1
+        return j - i
+
     def _resize(self, capacity):
         """
         >>> # 1. test resize up
