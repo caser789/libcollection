@@ -157,15 +157,56 @@ class BinarySearchKVStore(object):
 
     def __delitem__(self, key):
         """
+        >>> # 1. test delete item that not exists
         >>> d = BinarySearchKVStore()
         >>> del d['a']
         Traceback (most recent call last):
             ...
         KeyError: 'a'
+        >>> # 2. test delete item that exists
+        >>> d = BinarySearchKVStore()
+        >>> d['a'] = 1
+        >>> d['b'] = 2
+        >>> d['c'] = 3
+        >>> d.keys
+        ['a', 'b', 'c', NoneNode()]
+        >>> del d['a']
+        >>> d.keys
+        ['b', 'c', NoneNode(), NoneNode()]
+        >>> # 3. test delete item and resize down
+        >>> d = BinarySearchKVStore()
+        >>> d['a'] = 1
+        >>> d['b'] = 2
+        >>> d['c'] = 3
+        >>> d['d'] = 4
+        >>> d['e'] = 5
+        >>> del d['a']
+        >>> del d['b']
+        >>> d.capacity
+        8
+        >>> del d['c']
+        >>> d.capacity
+        4
+        >>> del d['d']
+        >>> d.capacity
+        2
+        >>> del d['e']
+        >>> d.capacity
+        2
         """
         i = self.index(key)
         if i == len(self) or self.keys[i] != key:
             raise KeyError(key)
+
+        for j in range(i, len(self)-1):
+            self.keys[j] = self.keys[j+1]
+            self.values[j] = self.values[j+1]
+        self.n -= 1
+        self.keys[self.n] = none
+        self.values[self.n] = none
+
+        if len(self) * 4 <= self.capacity and len(self):
+            self._resize(self.capacity//2)
 
     def del_max(self):
         pass
