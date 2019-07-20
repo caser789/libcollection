@@ -351,6 +351,20 @@ class BinarySearchKVStore(object):
             raise IndexError('underflow')
         del self[self.min]
 
+    def get_key_at_index(self, i):
+        """
+        >>> d = BinarySearchKVStore()
+        >>> d['b'] = 2
+        >>> d['c'] = 1
+        >>> d['a'] = 3
+        >>> d.get_key_at_index(3)
+        Traceback (most recent call last):
+            ...
+        IndexError: 3
+        """
+        if not 0 <= i < len(self):
+            raise IndexError(i)
+
     def _resize(self, capacity):
         """
         >>> # 1. test resize up
