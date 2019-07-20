@@ -164,9 +164,8 @@ class BinarySearchKVStore(object):
         KeyError: 'a'
         """
         i = self.index(key)
-        if i < len(self) and self.keys[i] == key:
-            pass
-        raise KeyError(key)
+        if i == len(self) or self.keys[i] != key:
+            raise KeyError(key)
 
     def del_max(self):
         pass
