@@ -395,6 +395,27 @@ class BinarySearchKVStore(object):
             return  # so key in this kvstore cannot be None
         return self.keys[i-1]
 
+    def ceiling(self, key):
+        """
+        Return the smallest key in kvstore that is greater than or equal to key
+        >>> d = BinarySearchKVStore()
+        >>> d[1] = 'a'
+        >>> d[2] = 'b'
+        >>> d[3] = 'c'
+        >>> d.ceiling(1.5)
+        2
+        >>> d.ceiling(0.5)
+        1
+        >>> d.ceiling(2)
+        2
+        >>> d.ceiling(5)
+
+        """
+        i = self.index(key)
+        if i == len(self):
+            return
+        return self.keys[i]
+
     def _resize(self, capacity):
         """
         >>> # 1. test resize up
