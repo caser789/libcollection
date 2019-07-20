@@ -156,7 +156,17 @@ class BinarySearchKVStore(object):
         raise KeyError(key)
 
     def __delitem__(self, key):
-        pass
+        """
+        >>> d = BinarySearchKVStore()
+        >>> del d['a']
+        Traceback (most recent call last):
+            ...
+        KeyError: 'a'
+        """
+        i = self.index(key)
+        if i < len(self) and self.keys[i] == key:
+            pass
+        raise KeyError(key)
 
     def del_max(self):
         pass
