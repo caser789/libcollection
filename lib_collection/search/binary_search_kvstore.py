@@ -21,6 +21,13 @@ class BinarySearchKVStore(object):
         >>> d['a'] = 1
         >>> len(d)
         1
+        >>> d['b'] = 2
+        >>> d['c'] = 3
+        >>> len(d)
+        3
+        >>> del d['a']
+        >>> len(d)
+        2
         """
         return self.n
 
