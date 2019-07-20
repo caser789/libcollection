@@ -21,11 +21,22 @@ class BinarySearchKVStore(object):
 
     @property
     def min(self):
-        pass
+        """
+        >>> # 1. test get min from empty raise underflow error
+        >>> d = BinarySearchKVStore()
+        >>> d.min
+        Traceback (most recent call last):
+            ...
+        IndexError: underflow
+        """
+        if len(self) == 0:
+            raise IndexError('underflow')
 
     @property
     def max(self):
-        pass
+        if len(self) == 0:
+            raise IndexError('underflow')
+
 
     def __setitem__(self, key, value):
         """
