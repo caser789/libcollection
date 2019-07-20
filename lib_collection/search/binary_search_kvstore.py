@@ -34,6 +34,14 @@ class BinarySearchKVStore(object):
 
     @property
     def max(self):
+        """
+        >>> # 1. test get max from empty raise underflow error
+        >>> d = BinarySearchKVStore()
+        >>> d.max
+        Traceback (most recent call last):
+            ...
+        IndexError: underflow
+        """
         if len(self) == 0:
             raise IndexError('underflow')
 
