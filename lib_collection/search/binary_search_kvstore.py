@@ -98,6 +98,14 @@ class BinarySearchKVStore(object):
             raise IndexError('underflow')
 
     def del_min(self):
+        """
+        >>> # 1. test del_max from empty kvstore raise index error
+        >>> d = BinarySearchKVStore()
+        >>> d.del_min()
+        Traceback (most recent call last):
+            ...
+        IndexError: underflow
+        """
         if len(self) == 0:
             raise IndexError('underflow')
 
