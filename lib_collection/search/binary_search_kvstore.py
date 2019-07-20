@@ -125,10 +125,15 @@ class BinarySearchKVStore(object):
         1
         >>> d['b']
         2
+        >>> d['c']
+        Traceback (most recent call last):
+            ...
+        KeyError: 'c'
         """
         i = self.index(key)
         if i < len(self) and self.keys[i] == key:
             return self.values[i]
+        raise KeyError(key)
 
     def __delitem__(self, key):
         pass
