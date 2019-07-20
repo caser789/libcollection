@@ -17,6 +17,18 @@ class BinarySearchKVStore(object):
         return self.n
 
     def __contains__(self, key):
+        """
+        >>> d = BinarySearchKVStore()
+        >>> 'a' in d
+        False
+        >>> d['a'] = 1
+        >>> d['b'] = 2
+        >>> 'a' in d
+        True
+        """
+        i = self.index(key)
+        if i < len(self) and self.keys[i] == key:
+            return True
         return False
 
     @property
