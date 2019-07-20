@@ -63,10 +63,8 @@ class ResizingArrayStack(object):
         b
         a
         """
-        n = self.n
-        while n > 0:
-            n -= 1
-            yield self.resizing_array[n]
+        for i in range(self.n-1, -1, -1):
+            yield self.resizing_array[i]
 
     def __repr__(self):
         """
@@ -115,18 +113,20 @@ class ResizingArrayStack(object):
         'e'
         >>> stack.pop()
         'd'
+        >>> stack.capacity
+        8
         >>> stack.pop()
         'c'
         >>> len(stack)
         2
         >>> stack.capacity
-        8
+        4
         >>> stack.pop()
         'b'
         >>> len(stack)
         1
         >>> stack.capacity
-        4
+        2
         >>> stack.pop()
         'a'
         >>> len(stack)
@@ -140,10 +140,13 @@ class ResizingArrayStack(object):
         """
         if len(self) == 0:
             raise IndexError('pop from empty stack')
-        if len(self) * 4 <= self.capacity:
-            self._resize(self.capacity/2)
         self.n -= 1
-        return self.resizing_array[self.n]
+        res = self.resizing_array[self.n]
+        self.resizing_array[self.n] = None
+
+        if len(self) and len(self) * 4 <= self.capacity:
+            self._resize(self.capacity/2)
+        return res
 
     @property
     def top(self):
