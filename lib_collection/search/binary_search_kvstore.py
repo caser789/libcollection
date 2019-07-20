@@ -205,6 +205,22 @@ class BinarySearchKVStore(object):
         for i in range(len(self)):
             yield self.keys[i]
 
+    def items(self):
+        """
+        >>> d = BinarySearchKVStore()
+        >>> d['b'] = 2
+        >>> d['a'] = 3
+        >>> d['c'] = 1
+        >>> for k, v in d.items():
+        ...     print k, v
+        ...
+        a 3
+        b 2
+        c 1
+        """
+        for i in range(len(self)):
+            yield self.keys[i], self.values[i]
+
     def index(self, key):
         """
         >>> d = BinarySearchKVStore()
