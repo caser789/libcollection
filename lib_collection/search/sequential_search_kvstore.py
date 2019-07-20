@@ -85,11 +85,11 @@ class SequentialSearchKVStore(object):
         n = self._get_node(key)
         if n:
             n.value = value
-        else:
-            node = KVNode(key, value)
-            node.next = self.head
-            self.head = node
-            self.n += 1
+            return
+        node = KVNode(key, value)
+        node.next = self.head
+        self.head = node
+        self.n += 1
 
     def __delitem__(self, key):
         """
