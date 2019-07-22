@@ -61,6 +61,24 @@ class SeparateChainingHashKVStore(object):
             self.n += 1
         d[k] = v
 
+    def __getitem__(self, k):
+        """
+        >>> # 1. test contains
+        >>> h = SeparateChainingHashKVStore()
+        >>> h['a'] = 1
+        >>> h['a']
+        1
+        >>> # 2. test not contains
+        >>> h = SeparateChainingHashKVStore()
+        >>> h['a']
+        Traceback (most recent call last):
+            ...
+        KeyError: 'a'
+        """
+        i = self._hash(k)
+        d = self.lst[i]
+        return d[k]
+
     def _hash(self, k):
         """
         >>> d = SeparateChainingHashKVStore()
