@@ -20,3 +20,4 @@ common data structures
 
 * SequentialSearchKVStore
 * BinarySearchKVStore
+* SeparateChainingHashKVStore
