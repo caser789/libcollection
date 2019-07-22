@@ -46,6 +46,18 @@ class SeparateChainingHashKVStore(object):
         return k in d
 
     def items(self):
+        """
+        >>> h = SeparateChainingHashKVStore(bucket_cnt=1)
+        >>> h['a'] = 2
+        >>> h['b'] = 1
+        >>> h['c'] = 3
+        >>> for k, v in h.items():
+        ...     print k, v
+        ...
+        c 3
+        b 1
+        a 2
+        """
         for kvstore in self.lst:
             for k, v in kvstore.items():
                 yield k, v
