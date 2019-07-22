@@ -5,9 +5,9 @@ class SeparateChainingHashKVStore(object):
 
     __item_cnt_per_bucket__ = 10
 
-    def __init__(self):
+    def __init__(self, bucket_cnt=4):
         self.n = 0
-        self.bucket_cnt = 4
+        self.bucket_cnt = bucket_cnt
         self.lst = [SequentialSearchKVStore() for _ in range(self.bucket_cnt)]
 
     def __len__(self):
@@ -36,3 +36,9 @@ class SeparateChainingHashKVStore(object):
         0
         """
         return sum(ord(i) for i in str(k)) % self.bucket_cnt
+
+    def _resize(self, bucket_cnt):
+        s = SeparateChainingHashKVStore(bucket_cnt=bucket_cnt)
+        for k, v in self.items():
+            s[k] = v
+        self.bucket_cnt = bucket_cnt
