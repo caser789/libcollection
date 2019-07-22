@@ -1,4 +1,6 @@
-from lib_collection.search.sequential_search_kvstore import SequentialSearchKVStore
+from lib_collection.search.sequential_search_kvstore import (
+    SequentialSearchKVStore,
+)
 
 
 class SeparateChainingHashKVStore(object):
@@ -17,6 +19,19 @@ class SeparateChainingHashKVStore(object):
         for kvstore in self.lst:
             for k in kvstore:
                 yield k
+
+    def __contains__(self, k):
+        """
+        >>> h = SeparateChainingHashKVStore(bucket_cnt=1)
+        >>> 'a' in h
+        False
+        >>> h['a'] = 1
+        >>> 'a' in h
+        True
+        """
+        i = self._hash(k)
+        d = self.lst[i]
+        return k in d
 
     def items(self):
         for kvstore in self.lst:
