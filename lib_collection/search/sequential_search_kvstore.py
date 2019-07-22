@@ -104,8 +104,15 @@ class SequentialSearchKVStore(object):
         False
         >>> len(d)
         0
+        >>> del d['a']
+        Traceback (most recent call last):
+            ...
+        KeyError: 'a'
         """
+        n = self.n
         self.head = self._delete_node(self.head, key)
+        if n == self.n:
+            raise KeyError(key)
 
     def __iter__(self):
         """
