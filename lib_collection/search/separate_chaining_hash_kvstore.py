@@ -7,10 +7,26 @@ class SeparateChainingHashKVStore(object):
 
     __item_cnt_per_bucket__ = 10
 
-    def __init__(self, bucket_cnt=4):
+    def __init__(self, d=None, bucket_cnt=4):
+        """
+        >>> h = SeparateChainingHashKVStore({'c': 3, 'b': 2, 'a': 1})
+        >>> h['a']
+        1
+        >>> h['b']
+        2
+        >>> h['c']
+        3
+        """
         self.n = 0
         self.bucket_cnt = bucket_cnt
         self.lst = [SequentialSearchKVStore() for _ in range(self.bucket_cnt)]
+        if d:
+            s = SeparateChainingHashKVStore(bucket_cnt=bucket_cnt)
+            for k, v in d.items():
+                s[k] = v
+            self.n = s.n
+            self.bucket_cnt = s.bucket_cnt
+            self.lst = s.lst
 
     def __repr__(self):
         """
@@ -19,9 +35,12 @@ class SeparateChainingHashKVStore(object):
         >>> h['b'] = 2
         >>> h['c'] = 3
         >>> h
-        SeparateChainingHashKVStore({c: 3, b: 2, a: 1})
+        SeparateChainingHashKVStore({'c': 3, 'b': 2, 'a': 1})
         """
-        s = ', '.join('{}: {}'.format(k, v) for k, v in self.items())
+        s = ', '.join(
+            '{}: {}'.format(repr(k), repr(v))
+            for k, v in self.items()
+        )
         return 'SeparateChainingHashKVStore({%s})' % s
 
     def __len__(self):
