@@ -13,6 +13,19 @@ class SeparateChainingHashKVStore(object):
         self.lst = [SequentialSearchKVStore() for _ in range(self.bucket_cnt)]
 
     def __len__(self):
+        """
+        >>> h = SeparateChainingHashKVStore(bucket_cnt=1)
+        >>> len(h)
+        0
+        >>> h['a'] = 1
+        >>> h['b'] = 2
+        >>> h['c'] = 3
+        >>> len(h)
+        3
+        >>> del h['c']
+        >>> len(h)
+        2
+        """
         return self.n
 
     def __iter__(self):
