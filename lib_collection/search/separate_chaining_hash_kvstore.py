@@ -23,6 +23,44 @@ class SeparateChainingHashKVStore(object):
             for k, v in kvstore.items():
                 yield k, v
 
+    def __setitem__(self, k, v):
+        """
+        >>> # 1. test not contains
+        >>> h = SeparateChainingHashKVStore(bucket_cnt=1)
+        >>> len(h)
+        0
+        >>> h['a'] = 1
+        >>> len(h)
+        1
+        >>> 'a' in h.lst[0]
+        True
+        >>> # 2. test contains
+        >>> h = SeparateChainingHashKVStore(bucket_cnt=1)
+        >>> s = SequentialSearchKVStore()
+        >>> s['a'] = 1
+        >>> h.n = 1
+        >>> h.lst = [s]
+        >>> h['a'] = 2
+        >>> len(h)
+        1
+        >>> s['a']
+        2
+        >>> # 3. test resize up
+        >>> h = SeparateChainingHashKVStore(bucket_cnt=4)
+        >>> h.n = 40
+        >>> h['a'] = 1
+        >>> h.bucket_cnt
+        8
+        """
+        if self.n >= 10 * self.bucket_cnt:
+            self._resize(self.bucket_cnt*2)
+
+        i = self._hash(k)
+        d = self.lst[i]
+        if k not in d:
+            self.n += 1
+        d[k] = v
+
     def _hash(self, k):
         """
         >>> d = SeparateChainingHashKVStore()
