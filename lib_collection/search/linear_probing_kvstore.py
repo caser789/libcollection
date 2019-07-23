@@ -10,7 +10,21 @@ class LinearProbingKVStore(object):
         return self.n
 
     def __contains__(self, k):
-        pass
+        """
+        >>> d = LinearProbingKVStore()
+        >>> 'a' in d
+        False
+        >>> d['a'] = 1
+        >>> d['e'] = 2
+        >>> 'a' in d
+        True
+        """
+        h = self._hash(k)
+        while self.keys[h] is not None:
+            if self.keys[h] == k:
+                return True
+            h = (h+1) % self.capacity
+        return False
 
     def __setitem__(self, k, v):
         """
