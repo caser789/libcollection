@@ -6,6 +6,17 @@ class LinearProbingKVStore(object):
         self.keys = [None] * self.capacity
         self.values = [None] * self.capacity
 
+    def __repr__(self):
+        """
+        >>> d = LinearProbingKVStore()
+        >>> d['a'] = 1
+        >>> d['b'] = 2
+        >>> d
+        LinearProbingKVStore({'a': 1, 'b': 2})
+        """
+        s = ', '.join('{}: {}'.format(repr(k), repr(v)) for k, v in self.items())
+        return 'LinearProbingKVStore({%s})' % s
+
     def __len__(self):
         """
         >>> d = LinearProbingKVStore()
