@@ -48,7 +48,7 @@ class LinearProbingKVStore(object):
         >>> # 2. test contains
         >>> d['a'] = 2
         >>> d.keys
-        [None, 'a']
+        [None, 'a', None, None]
         >>> # 3. test resize up
         >>> d = LinearProbingKVStore(capacity=4)
         >>> d['a'] = 1
@@ -99,7 +99,6 @@ class LinearProbingKVStore(object):
         for k, v in zip(self.keys, self.values):
             if k is not None:
                 yield k, v
-
 
     def __getitem__(self, k):
         """
@@ -204,4 +203,23 @@ class LinearProbingKVStore(object):
         return sum(ord(i) for i in str(k)) % self.capacity
 
     def _resize(self, capacity):
+        """
+        >>> d = LinearProbingKVStore()
+        >>> d['a'] = 1
+        >>> d['b'] = 1
+        >>> d.capacity
+        4
+        >>> d['c'] = 1
+        >>> d.capacity
+        8
+        >>> del d['a']
+        >>> del d['b']
+        >>> d.capacity
+        4
+        """
+        d = LinearProbingKVStore(capacity=capacity)
+        for k, v in self.items():
+            d[k] = v
         self.capacity = capacity
+        self.keys = d.keys
+        self.values = d.values
