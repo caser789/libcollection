@@ -71,10 +71,35 @@ class LinearProbingKVStore(object):
         self.n += 1
 
     def __iter__(self):
-        pass
+        """
+        >>> d = LinearProbingKVStore()
+        >>> d['a'] = 1
+        >>> d['b'] = 2
+        >>> for i in d:
+        ...     print i
+        ...
+        a
+        b
+        """
+        for k in self.keys:
+            if k is not None:
+                yield k
 
     def items(self):
-        pass
+        """
+        >>> d = LinearProbingKVStore()
+        >>> d['a'] = 1
+        >>> d['b'] = 2
+        >>> for k, v in d.items():
+        ...     print k, v
+        ...
+        a 1
+        b 2
+        """
+        for k, v in zip(self.keys, self.values):
+            if k is not None:
+                yield k, v
+
 
     def __getitem__(self, k):
         """
