@@ -51,7 +51,28 @@ class LinearProbingKVStore(object):
         pass
 
     def __getitem__(self, k):
-        pass
+        """
+        >>> # 1. test key not exists
+        >>> d = LinearProbingKVStore(capacity=2)
+        >>> d['a']
+        Traceback (most recent call last):
+            ...
+        KeyError: 'a'
+        >>> # 2. test key exists
+        >>> d['a'] = 1
+        >>> d['a']
+        1
+        >>> d['b']
+        Traceback (most recent call last):
+            ...
+        KeyError: 'b'
+        """
+        h = self._hash(k)
+        while self.keys[h] is not None:
+            if self.keys[h] == k:
+                return self.values[h]
+            h = (h+1) % self.capacity
+        raise KeyError(k)
 
     def __delitem__(self, k):
         pass
