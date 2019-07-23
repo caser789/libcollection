@@ -1,10 +1,25 @@
 class LinearProbingKVStore(object):
 
-    def __init__(self, capacity=4):
+    def __init__(self, d=None, capacity=4):
+        """
+        >>> d = LinearProbingKVStore({'a': 1, 'b': 2})
+        >>> d['a']
+        1
+        >>> d['b']
+        2
+        """
         self.capacity = capacity
         self.n = 0
         self.keys = [None] * self.capacity
         self.values = [None] * self.capacity
+
+        if d:
+            s = LinearProbingKVStore(capacity=capacity)
+            for k, v in d.items():
+                s[k] = v
+            self.n = s.n
+            self.keys = s.keys
+            self.values = s.values
 
     def __repr__(self):
         """
