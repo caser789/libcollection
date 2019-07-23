@@ -7,6 +7,18 @@ class LinearProbingKVStore(object):
         self.values = [None] * self.capacity
 
     def __len__(self):
+        """
+        >>> d = LinearProbingKVStore()
+        >>> len(d)
+        0
+        >>> d['a'] = 1
+        >>> d['b'] = 2
+        >>> len(d)
+        2
+        >>> del d['a']
+        >>> len(d)
+        1
+        """
         return self.n
 
     def __contains__(self, k):
