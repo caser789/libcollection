@@ -75,7 +75,68 @@ class LinearProbingKVStore(object):
         raise KeyError(k)
 
     def __delitem__(self, k):
-        pass
+        """
+        >>> # 1. test not contains
+        >>> d = LinearProbingKVStore()
+        >>> del d['a']
+        Traceback (most recent call last):
+            ...
+        KeyError: 'a'
+        >>> # 2. test contains
+        >>> d['a'] = 1
+        >>> del d['a']
+        >>> d['a']
+        Traceback (most recent call last):
+            ...
+        KeyError: 'a'
+        >>> # 3. test rehash
+        >>> d = LinearProbingKVStore()
+        >>> d._hash('a')
+        1
+        >>> d._hash('e')
+        1
+        >>> d['a'] = 1
+        >>> d['e'] = 2
+        >>> d.keys
+        [None, 'a', 'e', None]
+        >>> del d['a']
+        >>> d.keys
+        [None, 'e', None, None]
+        """
+        h = self._hash(k)
+        while True:
+            if self.keys[h] is None:
+                raise KeyError(k)
+            if self.keys[h] == k:
+                break
+            h = (h+1) % self.capacity
+
+        # delete
+        self._delete_kv_at_index(h)
+
+        # rehash the keys in same bucket
+        h = (h+1) % self.capacity
+
+
+        while self.keys[h] is not None:
+            self._rehash(h)
+            h = (h+1) % self.capacity
+
+        # resize down
+        if self.n and self.n * 8 <= self.capacity:
+            self._resize(self.capacity/2)
+
+    def _delete_kv_at_index(self, h):
+        self.keys[h] = None
+        self.values[h] = None
+        self.n -= 1
+
+    def _rehash(self, h):
+        key = self.keys[h]
+        value = self.values[h]
+        self._delete_kv_at_index(h)
+
+        self[key] = value
 
     def _hash(self, k):
         """
