@@ -62,16 +62,20 @@ class Tree(object):
         return 1 + len(self.lst[1]) + len(self.lst[2])
 
     def insert_left(self, v):
+        t = Tree(v)
         if len(self.lst[1]) == 0:
-            self.lst[1] = Tree(v)
+            self.lst[1] = t
             return
-        self.lst[1].insert_left(v)
+        t.insert_left(self.lst[1])
+        self.lst[1] = t
 
     def insert_right(self, v):
+        t = Tree(v)
         if len(self.lst[2]) == 0:
-            self.lst[2] = Tree(v)
+            self.lst[2] = t
             return
-        self.lst[2].insert_right(v)
+        t.insert_right(self.lst[2])
+        self.lst[2] = t
 
     @property
     def root_value(self):
