@@ -66,3 +66,28 @@ class FixedSizeMinPriorityQueue(object):
         while n > 1 and keys[n/2] > keys[n]:
             keys[n/2], keys[n] = keys[n], keys[n/2]
             n /= 2
+
+    def _sink(self, n):
+        """
+        >>> q = FixedSizeMinPriorityQueue()
+        >>> q.keys = [None, 3, 1, 2, None]
+        >>> q.n = 3
+        >>> q._sink(1)
+        >>> q.keys
+        [None, 1, 3, 2, None]
+        >>> q = FixedSizeMinPriorityQueue()
+        >>> q.keys = [None, 3, 2, 1, None]
+        >>> q.n = 3
+        >>> q._sink(1)
+        >>> q.keys
+        [None, 1, 2, 3, None]
+        """
+        keys = self.keys
+        while n * 2 <= self.n:
+            i = n * 2
+            if i < self.n and keys[i+1] < keys[i]:
+                i += 1
+            if keys[n] <= keys[i]:
+                break
+            keys[n], keys[i] = keys[i], keys[n]
+            n = i
