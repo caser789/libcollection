@@ -4,6 +4,20 @@ class MinPriorityQueue(object):
         self.n = 0
 
     def __len__(self):
+        """
+        >>> q = MinPriorityQueue()
+        >>> len(q)
+        0
+        >>> q.push(3)
+        >>> q.push(2)
+        >>> q.push(1)
+        >>> len(q)
+        3
+        >>> q.pop()
+        1
+        >>> len(q)
+        2
+        """
         return self.n
 
     def push(self, v):
