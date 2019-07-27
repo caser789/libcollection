@@ -1,7 +1,7 @@
 class MaxPriorityQueue(object):
 
-    def __init__(self, capacity=4):
-        self.keys = [None] * capacity
+    def __init__(self):
+        self.keys = [None] * 2
         self.n = 0
 
     def __len__(self):
@@ -34,6 +34,9 @@ class MaxPriorityQueue(object):
         >>> q.max
         3
         """
+        if self.n + 1 == len(self.keys):
+            self._resize(len(self.keys)*2)
+
         self.n += 1
         self.keys[self.n] = i
         self._swim(self.n)
@@ -65,6 +68,9 @@ class MaxPriorityQueue(object):
         self.n -= 1
 
         self._sink(1)
+
+        if self.n and self.n * 4 == len(self.keys) - 1:
+            self._resize(len(self.keys)/2)
         return res
 
     @property
