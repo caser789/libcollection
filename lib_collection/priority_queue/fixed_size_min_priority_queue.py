@@ -32,6 +32,24 @@ class FixedSizeMinPriorityQueue(object):
         return self.keys[1]
 
     def pop(self):
+        """
+        >>> q = FixedSizeMinPriorityQueue()
+        >>> q.insert(5)
+        >>> q.insert(4)
+        >>> q.insert(3)
+        >>> q.insert(2)
+        >>> q.insert(1)
+        >>> q.pop()
+        1
+        >>> q.pop()
+        2
+        >>> q.pop()
+        3
+        >>> q.pop()
+        4
+        >>> q.pop()
+        5
+        """
         keys = self.keys
         res = keys[1]
         keys[1], keys[self.n] = keys[self.n], keys[1]
