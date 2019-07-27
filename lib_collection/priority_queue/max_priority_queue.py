@@ -6,7 +6,7 @@ class MaxPriorityQueue(object):
 
     def __len__(self):
         """
-        >>> q = FixedSizeMaxPriorityQueue()
+        >>> q = MaxPriorityQueue()
         >>> len(q)
         0
         >>> q.push(1)
@@ -23,7 +23,7 @@ class MaxPriorityQueue(object):
 
     def push(self, i):
         """
-        >>> q = FixedSizeMaxPriorityQueue()
+        >>> q = MaxPriorityQueue()
         >>> q.push(1)
         >>> q.max
         1
@@ -40,7 +40,7 @@ class MaxPriorityQueue(object):
 
     def pop(self):
         """
-        >>> q = FixedSizeMaxPriorityQueue()
+        >>> q = MaxPriorityQueue()
         >>> q.push(1)
         >>> q.push(3)
         >>> q.push(2)
@@ -70,12 +70,12 @@ class MaxPriorityQueue(object):
     @property
     def max(self):
         """
-        >>> q = FixedSizeMaxPriorityQueue()
+        >>> q = MaxPriorityQueue()
         >>> q.max
         Traceback (most recent call last):
             ...
         IndexError: underflow
-        >>> q = FixedSizeMaxPriorityQueue()
+        >>> q = MaxPriorityQueue()
         >>> q.keys = [None, 1, 2, 3]
         >>> q.n = 3
         >>> q.max
@@ -87,13 +87,13 @@ class MaxPriorityQueue(object):
 
     def _swim(self, n):
         """
-        >>> q = FixedSizeMaxPriorityQueue()
+        >>> q = MaxPriorityQueue()
         >>> q.keys = [None, 1, 2, None, 3]
         >>> q.n = 4
         >>> q._swim(4)
         >>> q.keys
         [None, 3, 1, None, 2]
-        >>> q = FixedSizeMaxPriorityQueue()
+        >>> q = MaxPriorityQueue()
         >>> q.keys = [None, 2, 1, None, 3]
         >>> q.n = 4
         >>> q._swim(4)
@@ -107,13 +107,13 @@ class MaxPriorityQueue(object):
 
     def _sink(self, n):
         """
-        >>> q = FixedSizeMaxPriorityQueue()
+        >>> q = MaxPriorityQueue()
         >>> q.keys = [None, 1, 2, 3]
         >>> q.n = 3
         >>> q._sink(1)
         >>> q.keys
         [None, 3, 2, 1]
-        >>> q = FixedSizeMaxPriorityQueue()
+        >>> q = MaxPriorityQueue()
         >>> q.keys = [None, 2, 1, 3]
         >>> q.n = 3
         >>> q._sink(1)
@@ -131,3 +131,25 @@ class MaxPriorityQueue(object):
 
             keys[n], keys[i] = keys[i], keys[n]
             n = i
+
+    def _resize(self, n):
+        """
+        >>> # 1. test resize up
+        >>> q = MaxPriorityQueue()
+        >>> q.keys = [None, 1, 2]
+        >>> q.n = 2
+        >>> q._resize(6)
+        >>> q.keys
+        [None, 1, 2, None, None, None]
+        >>> # 2. test resize down
+        >>> q = MaxPriorityQueue()
+        >>> q.keys = [None, 1, 2, None, None, None]
+        >>> q.n = 2
+        >>> q._resize(3)
+        >>> q.keys
+        [None, 1, 2]
+        """
+        tmp = [None] * n
+        for i in range(self.n+1):
+            tmp[i] = self.keys[i]
+        self.keys = tmp
