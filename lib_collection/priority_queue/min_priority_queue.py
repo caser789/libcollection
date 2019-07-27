@@ -24,7 +24,17 @@ class MinPriorityQueue(object):
         self._swim(self.n)
 
     def pop(self):
-        pass
+        if not self.n:
+            raise IndexError('underflow')
+
+        keys = self.keys
+        res = keys[1]
+        keys[1], keys[self.n] = keys[self.n], keys[1]
+        keys[self.n] = None
+        self.n -= 1
+
+        self._sink(1)
+        return res
 
     @property
     def min(self):
@@ -63,3 +73,30 @@ class MinPriorityQueue(object):
         while n > 1 and keys[n/2] > keys[n]:
             keys[n/2], keys[n] = keys[n], keys[n/2]
             n /= 2
+
+    def _sink(self, n):
+        """
+        >>> q = MinPriorityQueue()
+        >>> q.keys = [None, 3, 2, 1]
+        >>> q.n = 3
+        >>> q._sink(1)
+        >>> q.keys
+        [None, 1, 2, 3]
+        >>> q = MinPriorityQueue()
+        >>> q.keys = [None, 3, 1, 2]
+        >>> q.n = 3
+        >>> q._sink(1)
+        >>> q.keys
+        [None, 1, 3, 2]
+        """
+        keys = self.keys
+        while 2 * n <= self.n:
+            i = 2 * n
+            if i < self.n and keys[i+1] < keys[i]:
+                i += 1
+
+            if keys[i] >= keys[n]:
+                break
+
+            keys[i], keys[n] = keys[n], keys[i]
+            n = i
