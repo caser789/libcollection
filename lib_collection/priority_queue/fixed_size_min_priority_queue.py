@@ -6,7 +6,30 @@ class FixedSizeMinPriorityQueue(object):
 
     @property
     def min(self):
-        pass
+        """
+        >>> # 1. Test underflow
+        >>> q = FixedSizeMinPriorityQueue()
+        >>> q.min
+        Traceback (most recent call last):
+            ...
+        IndexError: underflow
+        >>> # 2. Test min
+        >>> q.insert(3)
+        >>> q.min
+        3
+        >>> q.insert(2)
+        >>> q.min
+        2
+        >>> q.insert(1)
+        >>> q.min
+        1
+        >>> q.insert(4)
+        >>> q.min
+        1
+        """
+        if self.n == 0:
+            raise IndexError('underflow')
+        return self.keys[1]
 
     def pop(self):
         pass
