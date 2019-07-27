@@ -4,6 +4,23 @@ class FixedSizeMinPriorityQueue(object):
         self.keys = [None] * capacity
         self.n = 0
 
+    def __len__(self):
+        """
+        >>> q = FixedSizeMinPriorityQueue()
+        >>> len(q)
+        0
+        >>> q.insert(3)
+        >>> q.insert(2)
+        >>> q.insert(1)
+        >>> len(q)
+        3
+        >>> q.pop()
+        1
+        >>> len(q)
+        2
+        """
+        return self.n
+
     @property
     def min(self):
         """
