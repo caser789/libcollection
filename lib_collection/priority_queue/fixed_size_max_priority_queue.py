@@ -5,6 +5,20 @@ class FixedSizeMaxPriorityQueue(object):
         self.n = 0
 
     def __len__(self):
+        """
+        >>> q = FixedSizeMaxPriorityQueue()
+        >>> len(q)
+        0
+        >>> q.push(1)
+        >>> q.push(2)
+        >>> q.push(3)
+        >>> len(q)
+        3
+        >>> q.pop()
+        3
+        >>> len(q)
+        2
+        """
         return self.n
 
     def push(self, i):
