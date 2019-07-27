@@ -8,7 +8,9 @@ class FixedSizeMaxPriorityQueue(object):
         return self.n
 
     def push(self, i):
-        pass
+        self.n += 1
+        self.keys[self.n] = i
+        self._swim(self.n)
 
     def pop(self):
         pass
@@ -30,3 +32,23 @@ class FixedSizeMaxPriorityQueue(object):
         if not self.n:
             raise IndexError('underflow')
         return self.keys[1]
+
+    def _swim(self, n):
+        """
+        >>> q = FixedSizeMaxPriorityQueue()
+        >>> q.keys = [None, 1, 2, None, 3]
+        >>> q.n = 4
+        >>> q._swim(4)
+        >>> q.keys
+        [None, 3, 1, None, 2]
+        >>> q = FixedSizeMaxPriorityQueue()
+        >>> q.keys = [None, 2, 1, None, 3]
+        >>> q.n = 4
+        >>> q._swim(4)
+        >>> q.keys
+        [None, 3, 2, None, 1]
+        """
+        keys = self.keys
+        while n > 1 and keys[n/2] < keys[n]:
+            keys[n/2], keys[n] = keys[n], keys[n/2]
+            n /= 2
