@@ -32,7 +32,13 @@ class FixedSizeMinPriorityQueue(object):
         return self.keys[1]
 
     def pop(self):
-        pass
+        keys = self.keys
+        res = keys[1]
+        keys[1], keys[self.n] = keys[self.n], keys[1]
+        keys[self.n] = None
+        self.n -= 1
+        self._sink(1)
+        return res
 
     def insert(self, i):
         """
