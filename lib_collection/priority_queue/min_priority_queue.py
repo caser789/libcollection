@@ -1,6 +1,6 @@
 class MinPriorityQueue(object):
     def __init__(self):
-        self.keys = [None] * 4
+        self.keys = [None] * 2
         self.n = 0
 
     def __len__(self):
@@ -33,6 +33,9 @@ class MinPriorityQueue(object):
         >>> q.min
         1
         """
+        if self.n + 1 == len(self.keys):
+            self._resize(2*len(self.keys))
+
         self.n += 1
         self.keys[self.n] = v
         self._swim(self.n)
@@ -45,6 +48,8 @@ class MinPriorityQueue(object):
         >>> q.push(2)
         >>> q.pop()
         1
+        >>> q.keys
+        [None, 2, 3, None]
         >>> q.pop()
         2
         >>> q.pop()
@@ -64,6 +69,9 @@ class MinPriorityQueue(object):
         self.n -= 1
 
         self._sink(1)
+
+        if self.n and self.n * 4 == len(self.keys)-1:
+            self._resize(len(self.keys)/2)
         return res
 
     @property
