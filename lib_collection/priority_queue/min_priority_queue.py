@@ -16,7 +16,21 @@ class MinPriorityQueue(object):
 
     @property
     def min(self):
-        pass
+        """
+        >>> q = MinPriorityQueue()
+        >>> q.min
+        Traceback (most recent call last):
+            ...
+        IndexError: underflow
+        >>> q = MinPriorityQueue()
+        >>> q.keys = [None, 4, 1, 2]
+        >>> q.n = 3
+        >>> q.min
+        4
+        """
+        if not self.n:
+            raise IndexError('underflow')
+        return self.keys[1]
 
     def _swim(self, n):
         """
