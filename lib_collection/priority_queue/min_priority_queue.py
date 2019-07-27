@@ -130,3 +130,17 @@ class MinPriorityQueue(object):
 
             keys[i], keys[n] = keys[n], keys[i]
             n = i
+
+    def _resize(self, n):
+        """
+        >>> q = MinPriorityQueue()
+        >>> q.keys = [None, 1, 2, 3]
+        >>> q.n = 3
+        >>> q._resize(6)
+        >>> q.keys
+        [None, 1, 2, 3, None, None]
+        """
+        tmp = [None]*n
+        for i in range(self.n+1):
+            tmp[i] = self.keys[i]
+        self.keys = tmp
