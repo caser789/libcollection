@@ -25,6 +25,22 @@ class FixedSizeMaxPriorityQueue(object):
         self._swim(self.n)
 
     def pop(self):
+        """
+        >>> q = FixedSizeMaxPriorityQueue()
+        >>> q.push(1)
+        >>> q.push(3)
+        >>> q.push(2)
+        >>> q.pop()
+        3
+        >>> q.pop()
+        2
+        >>> q.pop()
+        1
+        >>> q.pop()
+        Traceback (most recent call last):
+            ...
+        IndexError: underflow
+        """
         if not self.n:
             raise IndexError('underflow')
 
