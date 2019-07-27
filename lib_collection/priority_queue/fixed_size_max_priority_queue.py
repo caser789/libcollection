@@ -8,6 +8,18 @@ class FixedSizeMaxPriorityQueue(object):
         return self.n
 
     def push(self, i):
+        """
+        >>> q = FixedSizeMaxPriorityQueue()
+        >>> q.push(1)
+        >>> q.max
+        1
+        >>> q.push(3)
+        >>> q.max
+        3
+        >>> q.push(2)
+        >>> q.max
+        3
+        """
         self.n += 1
         self.keys[self.n] = i
         self._swim(self.n)
