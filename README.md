@@ -22,3 +22,22 @@ common data structures
 * BinarySearchKVStore
 * SeparateChainingHashKVStore
 * LinearProbingKVStore
+
+## Sort
+
+* bubble sort
+* quick bubble sort
+* selection sort
+* quick selection sort
+* recursive selection sort
+* insertion sort
+* shell sort
+* merge sort
+* quick sort
+
+## Priority queue
+
+* fixed size min priority queue
+* fixed size max priority queue
+* min priority queue
+* max priority queue
