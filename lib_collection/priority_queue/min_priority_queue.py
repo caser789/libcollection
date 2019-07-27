@@ -7,6 +7,18 @@ class MinPriorityQueue(object):
         return self.n
 
     def push(self, v):
+        """
+        >>> q = MinPriorityQueue()
+        >>> q.push(3)
+        >>> q.min
+        3
+        >>> q.push(2)
+        >>> q.min
+        2
+        >>> q.push(1)
+        >>> q.min
+        1
+        """
         self.n += 1
         self.keys[self.n] = v
         self._swim(self.n)
