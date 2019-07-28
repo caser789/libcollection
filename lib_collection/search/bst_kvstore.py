@@ -308,3 +308,30 @@ class BSTKVStore(object):
         node.right = self._delete_max_node(node.right)
         node.size = 1 + self._get_size(node.left) + self._get_size(node.right)
         return node
+
+    def delete_max(self):
+        """
+        >>> # 1. test index error
+        >>> s = BSTKVStore()
+        >>> s.delete_max()
+        Traceback (most recent call last):
+            ...
+        IndexError: underflow
+        >>> # 2. test delete max
+        >>> s = BSTKVStore()
+        >>> s[2] = 'b'
+        >>> s[3] = 'c'
+        >>> s[1] = 'a'
+        >>> s.max
+        3
+        >>> s.delete_max()
+        >>> s.max
+        2
+        >>> s.delete_max()
+        >>> s.max
+        1
+        """
+        if len(self) == 0:
+            raise IndexError('underflow')
+        self.root = self._delete_max_node(self.root)
+
