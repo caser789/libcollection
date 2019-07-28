@@ -728,3 +728,24 @@ class BSTKVStore(object):
             return self._get_node_by_index(node.left, i)
 
         return self._get_node_by_index(node.right, i-left_size-1)
+
+    @property
+    def height(self):
+        """
+        A one-node tree has height of 0
+        >>> s = BSTKVStore()
+        >>> s.height
+        -1
+        >>> s[1] = 'a'
+        >>> s.height
+        0
+        >>> s[2] = 'b'
+        >>> s.height
+        1
+        """
+        return self._height(self.root)
+
+    def _height(self, node):
+        if not node:
+            return -1
+        return 1 + max(self._height(node.left), self._height(node.right))
