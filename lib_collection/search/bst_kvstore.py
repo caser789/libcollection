@@ -626,6 +626,11 @@ class BSTKVStore(object):
         >>> b = Node(2, 'b')
         >>> s._index(b, 1)
         0
+        >>> # 5. test k > node.k
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> s._index(b, 3)
+        1
         """
         if not node:
             return 0
