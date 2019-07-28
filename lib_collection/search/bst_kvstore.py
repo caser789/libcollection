@@ -663,6 +663,18 @@ class BSTKVStore(object):
         return self._get_size(node.left) + 1 + self._index(node.right, k)
 
     def get_by_index(self, i):
+        """
+        >>> s = BSTKVStore()
+        >>> s[1] = 'a'
+        >>> s[2] = 'b'
+        >>> s[3] = 'c'
+        >>> s.get_by_index(0)
+        1
+        >>> s.get_by_index(1)
+        2
+        >>> s.get_by_index(2)
+        3
+        """
         if not 0 <= i < len(self):
             raise IndexError()
 
