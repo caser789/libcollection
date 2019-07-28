@@ -61,6 +61,19 @@ class BSTKVStore(object):
         return n.v
 
     def __len__(self):
+        """
+        >>> s = BSTKVStore()
+        >>> len(s)
+        0
+        >>> s[1] = 'a'
+        >>> s[2] = 'b'
+        >>> s[3] = 'c'
+        >>> len(s)
+        3
+        >>> del s[3]
+        >>> len(s)
+        2
+        """
         return self._get_size(self.root)
 
     def _put_to_node(self, node, k, v):
