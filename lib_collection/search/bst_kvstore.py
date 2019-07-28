@@ -335,3 +335,64 @@ class BSTKVStore(object):
             raise IndexError('underflow')
         self.root = self._delete_max_node(self.root)
 
+    def __delitem__(self, k):
+        pass
+
+    def _delete_node(self, node, k):
+        """
+        >>> # 1. test node is None
+        >>> s = BSTKVStore()
+        >>> res = s._delete_node(None, 'k')
+        >>> res is None
+        True
+        >>> # 2. test k < node.k
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> a = Node(1, 'a')
+        >>> n = s._delete_node(b, 1)
+        >>> n is b
+        True
+        >>> n.left is None
+        True
+        >>> # 3. test k > node.k
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> c = Node(3, 'c')
+        >>> n = s._delete_node(b, 3)
+        >>> n is b
+        True
+        >>> n.right is None
+        True
+        >>> # 4. test k == node.k
+        >>> s = BSTKVStore()
+        >>> a = Node(1, 'a')
+        >>> b = Node(2, 'b')
+        >>> c = Node(3, 'c')
+        >>> b.left = a
+        >>> b.right = c
+        >>> n = s._delete_node(b, 2)
+        >>> n is c
+        True
+        >>> n.left is a
+        True
+        """
+        if node is None:
+            return
+
+        if k < node.k:
+            node.left = self._delete_node(node.left, k)
+        elif k > node.k:
+            node.right = self._delete_node(node.right, k)
+        else:
+            if node.left is None:
+                return node.right
+            if node.right is None:
+                return node.left
+
+            n = self._get_min_node(node.right)
+            n.right = self._delete_min_node(node.right)
+            n.left = node.left
+            node = n
+
+        node.size = 1 + self._get_size(node.left) + self._get_size(node.right)
+        return node
