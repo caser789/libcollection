@@ -24,9 +24,15 @@ class BSTKVStore(object):
     def __setitem__(self, k, v):
         """
         >>> s = BSTKVStore()
-        >>> s[1] = 'a'
+        >>> s[2] = 'b'
         >>> s.root
+        Node(2, 'b')
+        >>> s[1] = 'a'
+        >>> s.root.left
         Node(1, 'a')
+        >>> s[3] = 'c'
+        >>> s.root.right
+        Node(3, 'c')
         """
         self.root = self._put_to_node(self.root, k, v)
 
