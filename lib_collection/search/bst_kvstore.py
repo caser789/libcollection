@@ -36,6 +36,10 @@ class BSTKVStore(object):
         """
         self.root = self._put_to_node(self.root, k, v)
 
+    def __getitem__(self, k):
+        n = self._get_node(self.root, k)
+        return n.v if n else None
+
     def __len__(self):
         return self._get_size(self.root)
 
@@ -57,3 +61,22 @@ class BSTKVStore(object):
         if node is None:
             return 0
         return node.size
+
+    def _get_node(self, node, k):
+        """
+        >>> # 1. test the node passed in is None
+        >>> s = BSTKVStore()
+        >>> n = s._get_node(None, 'k')
+        >>> n
+
+        """
+        if not node:
+            return
+
+        if node.k == k:
+            return node
+
+        if k < node.k:
+            return self._get_node(node.left, k)
+
+        return self._get_node(node.right, k)
