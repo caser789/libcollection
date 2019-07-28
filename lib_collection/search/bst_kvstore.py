@@ -540,6 +540,22 @@ class BSTKVStore(object):
         >>> n = s._get_ceiling_node(b, 2)
         >>> n is b
         True
+        >>> # 3. test k > node.k and found
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> c = Node(3, 'c')
+        >>> b.right = c
+        >>> n = s._get_ceiling_node(b, 2.5)
+        >>> n is c
+        True
+        >>> # 4. test k > node.k and not found
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> c = Node(3, 'c')
+        >>> b.right = c
+        >>> n = s._get_ceiling_node(b, 3.5)
+        >>> n is None
+        True
         """
         if node is None:
             return
