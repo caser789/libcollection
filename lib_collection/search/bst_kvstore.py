@@ -519,3 +519,32 @@ class BSTKVStore(object):
             return self._get_floor2(node.left, k, default)
 
         return self._get_floor2(node.right, k, node.k)
+
+    def ceiling(self, k):
+        """
+        Return the smallest key that <= k
+        """
+        pass
+
+    def _get_ceiling_node(self, node, k):
+        """
+        Return the smallest node with key >= k
+        >>> # 1. test node is None
+        >>> s = BSTKVStore()
+        >>> n = s._get_floor_node(None, 'k')
+        >>> n is None
+        True
+        """
+        if node is None:
+            return
+
+        if node.k == k:
+            return node
+
+        if k > node.k:
+            return self._get_ceiling_node(node.right, k)
+
+        n = self._get_ceiling_node(node.left, k)
+        if not n:
+            return node
+        return n
