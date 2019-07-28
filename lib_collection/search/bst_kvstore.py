@@ -674,9 +674,22 @@ class BSTKVStore(object):
         >>> # 1. test left_size == i
         >>> s = BSTKVStore()
         >>> a = Node(1, 'a')
-        >>> b = Node(1, 'b')
+        >>> b = Node(2, 'b')
+        >>> b.size = 2
         >>> b.left = a
         >>> n = s._get_node_by_index(b, 1)
+        >>> n is b
+        True
+        >>> # 2. test i < left_size
+        >>> s = BSTKVStore()
+        >>> a = Node(1, 'a')
+        >>> b = Node(2, 'b')
+        >>> c = Node(3, 'c')
+        >>> c.size = 3
+        >>> b.size = 2
+        >>> c.left = b
+        >>> b.left = a
+        >>> n = s._get_node_by_index(c, 1)
         >>> n is b
         True
         """
