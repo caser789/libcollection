@@ -449,6 +449,16 @@ class BSTKVStore(object):
         >>> n = s._get_floor_node(b, 3)
         >>> n is c
         True
+        >>> # 5. test k < node.k and not found in right
+        >>> s = BSTKVStore()
+        >>> a = Node(1, 'a')
+        >>> b = Node(2, 'b')
+        >>> c = Node(3, 'c')
+        >>> b.left = a
+        >>> b.right = c
+        >>> n = s._get_floor_node(b, 2.5)
+        >>> n is b
+        True
         """
         if not node:
             return
@@ -459,6 +469,6 @@ class BSTKVStore(object):
             return self._get_floor_node(node.left, k)
 
         n = self._get_floor_node(node.right, k)
-        if n:
-            return n
-        return node
+        if not n:
+            return node
+        return n
