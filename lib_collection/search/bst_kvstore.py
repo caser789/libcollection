@@ -224,3 +224,35 @@ class BSTKVStore(object):
             raise IndexError('underflow')
         n = self._get_max_node(self.root)
         return n.k
+
+    def delete_min(self):
+        pass
+
+    def _delete_min_node(self, node):
+        """
+        >>> # 1. node is the min node
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> c = Node(3, 'c')
+        >>> b.right = c
+        >>> n = s._delete_min_node(b)
+        >>> n is c
+        True
+        >>> # 1. node is not the min node
+        >>> s = BSTKVStore()
+        >>> a = Node(1, 'a')
+        >>> b = Node(2, 'b')
+        >>> c = Node(3, 'c')
+        >>> b.left = a
+        >>> b.right = c
+        >>> n = s._delete_min_node(b)
+        >>> n is b
+        True
+        >>> n.left is None
+        True
+        """
+        if node.left is None:
+            return node.right
+        node.left = self._delete_min_node(node.left)
+        node.size = 1 + self._get_size(node.left) + self._get_size(node.right)
+        return node
