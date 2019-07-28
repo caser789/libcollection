@@ -181,3 +181,24 @@ class BSTKVStore(object):
         if node.left is None:
             return node
         return self._get_min_node(node.left)
+
+    def _get_max_node(self, node):
+        """
+        >>> # 1. test node is the max node
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> n = s._get_max_node(b)
+        >>> n is b
+        True
+        >>> # 2. test node is not the max node
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> c = Node(3, 'c')
+        >>> b.right = c
+        >>> n = s._get_max_node(b)
+        >>> n is c
+        True
+        """
+        if node.right is None:
+            return node
+        return self._get_max_node(node.right)
