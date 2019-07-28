@@ -753,6 +753,19 @@ class BSTKVStore(object):
             return -1
         return 1 + max(self._height(node.left), self._height(node.right))
 
+    def __contains__(self, k):
+        """
+        >>> s = BSTKVStore()
+        >>> 1 in s
+        False
+        >>> s[1] = 'a'
+        >>> s[2] = 'b'
+        >>> 1 in s
+        True
+        """
+        n = self._get_node(self.root, k)
+        return n is not None
+
     def __iter__(self):
         """
         >>> s = BSTKVStore()
