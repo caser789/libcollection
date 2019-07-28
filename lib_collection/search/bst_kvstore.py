@@ -409,3 +409,32 @@ class BSTKVStore(object):
 
         node.size = 1 + self._get_size(node.left) + self._get_size(node.right)
         return node
+
+    def floor(self, k):
+        """
+        Return the largest key <= k
+        """
+        n = self._get_floor_node(self.root, k)
+        return n.k if n else None
+
+    def _get_floor_node(self, node, k):
+        """
+        Return the largest node with key <= k
+        >>> # 1. test node is None
+        >>> s = BSTKVStore()
+        >>> n = s._get_floor_node(None, 'k')
+        >>> n is None
+        True
+        """
+        if not node:
+            return
+        if node.k == k:
+            return node
+
+        if k < node.k:
+            return self._get_floor_node(node.left, k)
+
+        n = self._get_floor_node(node.right, k)
+        if n:
+            return n
+        return node
