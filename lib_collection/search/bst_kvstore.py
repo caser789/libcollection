@@ -91,6 +91,14 @@ class BSTKVStore(object):
         >>> res = s._get_node(b, 1.5)
         >>> res is None
         True
+        >>> # 5. test k greater than k of node and found
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> c = Node(3, 'c')
+        >>> b.right = c
+        >>> res = s._get_node(b, 3)
+        >>> res is c
+        True
         """
         if not node:
             return
