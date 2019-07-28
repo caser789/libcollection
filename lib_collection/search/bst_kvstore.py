@@ -531,8 +531,14 @@ class BSTKVStore(object):
         Return the smallest node with key >= k
         >>> # 1. test node is None
         >>> s = BSTKVStore()
-        >>> n = s._get_floor_node(None, 'k')
+        >>> n = s._get_ceiling_node(None, 'k')
         >>> n is None
+        True
+        >>> # 2. test node.k == k
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> n = s._get_ceiling_node(b, 2)
+        >>> n is b
         True
         """
         if node is None:
