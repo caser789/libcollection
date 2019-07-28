@@ -336,7 +336,20 @@ class BSTKVStore(object):
         self.root = self._delete_max_node(self.root)
 
     def __delitem__(self, k):
-        pass
+        """
+        >>> s = BSTKVStore()
+        >>> s[2] = 'b'
+        >>> s[3] = 'c'
+        >>> s[1] = 'a'
+        >>> s[3]
+        'c'
+        >>> del s[3]
+        >>> s[3]
+        Traceback (most recent call last):
+            ...
+        KeyError: 3
+        """
+        self.root = self._delete_node(self.root, k)
 
     def _delete_node(self, node, k):
         """
