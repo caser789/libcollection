@@ -413,6 +413,18 @@ class BSTKVStore(object):
     def floor(self, k):
         """
         Return the largest key <= k
+        >>> n = BSTKVStore()
+        >>> n[1] = 'a'
+        >>> n[2] = 'b'
+        >>> n[3] = 'c'
+        >>> n.floor(2)
+        2
+        >>> n.floor(4)
+        3
+        >>> n.floor(1.5)
+        1
+        >>> n.floor(0.5)
+
         """
         n = self._get_floor_node(self.root, k)
         return n.k if n else None
