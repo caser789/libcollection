@@ -44,6 +44,16 @@ class BSTKVStore(object):
         Traceback (most recent call last):
             ...
         KeyError: 5
+        >>> # 2. test found
+        >>> s[1] = 'a'
+        >>> s[2] = 'b'
+        >>> s[3] = 'c'
+        >>> s[3]
+        'c'
+        >>> s[2]
+        'b'
+        >>> s[1]
+        'a'
         """
         n = self._get_node(self.root, k)
         if n is None:
