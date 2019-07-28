@@ -692,6 +692,18 @@ class BSTKVStore(object):
         >>> n = s._get_node_by_index(c, 1)
         >>> n is b
         True
+        >>> # 3. test i > left_size
+        >>> s = BSTKVStore()
+        >>> a = Node(1, 'a')
+        >>> b = Node(2, 'b')
+        >>> c = Node(3, 'c')
+        >>> a.right = b
+        >>> b.right = c
+        >>> b.size = 2
+        >>> a.size = 3
+        >>> n = s._get_node_by_index(a, 2)
+        >>> n is c
+        True
         """
         if not node:
             return
