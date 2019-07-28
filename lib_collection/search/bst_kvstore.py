@@ -138,3 +138,28 @@ class BSTKVStore(object):
             return self._get_node(node.left, k)
 
         return self._get_node(node.right, k)
+
+    @property
+    def min(self):
+        pass
+
+    def _get_min_node(self, node):
+        """
+        >>> # 1. test node is the min node
+        >>> s = BSTKVStore()
+        >>> b = Node(1, 'b')
+        >>> n = s._get_min_node(b)
+        >>> n is b
+        True
+        >>> # 2. test node is not the min node
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> a = Node(1, 'a')
+        >>> b.left = a
+        >>> n = s._get_min_node(b)
+        >>> n is a
+        True
+        """
+        if node.left is None:
+            return node
+        return self._get_min_node(node.left)
