@@ -614,16 +614,26 @@ class BSTKVStore(object):
         >>> b = Node(2, 'b')
         >>> s._index(b, 2)
         0
-        >>> # 2. test k == node.k and node.left is not None
+        >>> # 3. test k == node.k and node.left is not None
         >>> s = BSTKVStore()
         >>> b = Node(2, 'b')
         >>> a = Node(1, 'a')
         >>> b.left = a
         >>> s._index(b, 2)
         1
+        >>> # 4. test k < node.k
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> s._index(b, 1)
+        0
         """
         if not node:
             return 0
 
         if node.k == k:
             return self._get_size(node.left)
+
+        if k < node.k:
+            return self._index(node.left, k)
+
+        return self._get_size(node.left) + 1 + self._index(node.right, k)
