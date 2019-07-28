@@ -605,8 +605,14 @@ class BSTKVStore(object):
 
     def _index(self, node, k):
         """
+        >>> # 1. test node is None
         >>> s = BSTKVStore()
         >>> s._index(None, 'k')
+        0
+        >>> # 2. test k == node.k and node.left is None
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> s._index(b, 2)
         0
         """
         if not node:
