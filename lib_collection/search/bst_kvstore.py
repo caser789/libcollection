@@ -69,6 +69,12 @@ class BSTKVStore(object):
         >>> n = s._get_node(None, 'k')
         >>> n
 
+        >>> # 2. test k equal
+        >>> s = BSTKVStore()
+        >>> n = Node(1, 'a')
+        >>> res = s._get_node(n, 1)
+        >>> res is n
+        True
         """
         if not node:
             return
