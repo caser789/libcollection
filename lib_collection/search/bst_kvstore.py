@@ -141,7 +141,25 @@ class BSTKVStore(object):
 
     @property
     def min(self):
-        pass
+        """
+        >>> # 1. test index error
+        >>> s = BSTKVStore()
+        >>> s.min
+        Traceback (most recent call last):
+            ...
+        IndexError: underflow
+        >>> # 2. test get min
+        >>> s = BSTKVStore()
+        >>> s[2] = 'b'
+        >>> s[1] = 'a'
+        >>> s[3] = 'c'
+        >>> s.min
+        1
+        """
+        if len(self) == 0:
+            raise IndexError('underflow')
+        n = self._get_min_node(self.root)
+        return n.k
 
     def _get_min_node(self, node):
         """
