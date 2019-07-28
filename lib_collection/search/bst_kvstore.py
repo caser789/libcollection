@@ -37,8 +37,18 @@ class BSTKVStore(object):
         self.root = self._put_to_node(self.root, k, v)
 
     def __getitem__(self, k):
+        """
+        >>> # 1. test KeyError
+        >>> s = BSTKVStore()
+        >>> s[5]
+        Traceback (most recent call last):
+            ...
+        KeyError: 5
+        """
         n = self._get_node(self.root, k)
-        return n.v if n else None
+        if n is None:
+            raise KeyError(k)
+        return n.v
 
     def __len__(self):
         return self._get_size(self.root)
