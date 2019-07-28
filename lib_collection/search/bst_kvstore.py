@@ -601,6 +601,25 @@ class BSTKVStore(object):
         return n
 
     def index(self, k):
+        """
+        >>> # 1. test node is None
+        >>> s = BSTKVStore()
+        >>> s.index(0)
+        0
+        >>> s[1] = 'a'
+        >>> s[2] = 'b'
+        >>> s[3] = 'c'
+        >>> s.index(1)
+        0
+        >>> s.index(2)
+        1
+        >>> s.index(3)
+        2
+        >>> s.index(4)
+        3
+        >>> s.index(2.3)
+        2
+        """
         return self._index(self.root, k)
 
     def _index(self, node, k):
