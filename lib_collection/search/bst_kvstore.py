@@ -1,3 +1,6 @@
+from lib_collection.queue.linked_queue import LinkedQueue
+
+
 class Node(object):
     def __init__(self, k, v):
         self.k = k
@@ -749,3 +752,28 @@ class BSTKVStore(object):
         if not node:
             return -1
         return 1 + max(self._height(node.left), self._height(node.right))
+
+    def __iter__(self):
+        """
+        >>> s = BSTKVStore()
+        >>> s[1] = 'a'
+        >>> s[2] = 'b'
+        >>> s[3] = 'c'
+        >>> s[4] = 'd'
+        >>> for k in s:
+        ...    print k
+        ...
+        1
+        2
+        3
+        4
+        """
+        q = LinkedQueue()
+        q.enqueue(self.root)
+        while len(q) > 0:
+            n = q.dequeue()
+            yield n.k
+            if n.left:
+                q.enqueue(n.left)
+            if n.right:
+                q.enqueue(n.right)
