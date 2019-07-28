@@ -22,6 +22,7 @@ common data structures
 * BinarySearchKVStore
 * SeparateChainingHashKVStore
 * LinearProbingKVStore
+* BSTKVStore
 
 ## Sort
 
