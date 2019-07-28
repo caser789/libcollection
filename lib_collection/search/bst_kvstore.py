@@ -599,3 +599,18 @@ class BSTKVStore(object):
         if not n:
             return node
         return n
+
+    def index(self, k):
+        return self._index(self.root, k)
+
+    def _index(self, node, k):
+        """
+        >>> s = BSTKVStore()
+        >>> s._index(None, 'k')
+        0
+        """
+        if not node:
+            return 0
+
+        if node.k == k:
+            return self._get_size(node.left)
