@@ -279,3 +279,32 @@ class BSTKVStore(object):
         node.left = self._delete_min_node(node.left)
         node.size = 1 + self._get_size(node.left) + self._get_size(node.right)
         return node
+
+    def _delete_max_node(self, node):
+        """
+        >>> # 1. node is the max node
+        >>> s = BSTKVStore()
+        >>> b = Node(2, 'b')
+        >>> a = Node(1, 'd')
+        >>> b.left = a
+        >>> n = s._delete_max_node(b)
+        >>> n is a
+        True
+        >>> # 2. node is not the max node
+        >>> s = BSTKVStore()
+        >>> a = Node(1, 'a')
+        >>> b = Node(2, 'b')
+        >>> c = Node(3, 'c')
+        >>> b.left = a
+        >>> b.right = c
+        >>> n = s._delete_max_node(b)
+        >>> n is b
+        True
+        >>> n.right is None
+        True
+        """
+        if node.right is None:
+            return node.left
+        node.right = self._delete_max_node(node.right)
+        node.size = 1 + self._get_size(node.left) + self._get_size(node.right)
+        return node
