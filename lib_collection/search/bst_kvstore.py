@@ -202,3 +202,25 @@ class BSTKVStore(object):
         if node.right is None:
             return node
         return self._get_max_node(node.right)
+
+    @property
+    def max(self):
+        """
+        >>> # 1. test index error
+        >>> s = BSTKVStore()
+        >>> s.max
+        Traceback (most recent call last):
+            ...
+        IndexError: underflow
+        >>> # 2. test get max
+        >>> s = BSTKVStore()
+        >>> s[2] = 'b'
+        >>> s[3] = 'c'
+        >>> s[1] = 'a'
+        >>> s.max
+        3
+        """
+        if len(self) == 0:
+            raise IndexError('underflow')
+        n = self._get_max_node(self.root)
+        return n.k
