@@ -661,3 +661,33 @@ class BSTKVStore(object):
             return self._index(node.left, k)
 
         return self._get_size(node.left) + 1 + self._index(node.right, k)
+
+    def get_by_index(self, i):
+        if not 0 <= i < len(self):
+            raise IndexError()
+
+        n = self._get_node_by_index(self.root, i)
+        return n.k
+
+    def _get_node_by_index(self, node, i):
+        """
+        >>> # 1. test left_size == i
+        >>> s = BSTKVStore()
+        >>> a = Node(1, 'a')
+        >>> b = Node(1, 'b')
+        >>> b.left = a
+        >>> n = s._get_node_by_index(b, 1)
+        >>> n is b
+        True
+        """
+        if not node:
+            return
+        left_size = self._get_size(node.left)
+
+        if left_size == i:
+            return node
+
+        if i < left_size:
+            return self._get_node_by_index(node.left, i)
+
+        return self._get_node_by_index(node.right, i-left_size-1)
