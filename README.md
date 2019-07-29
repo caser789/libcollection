@@ -35,6 +35,7 @@ common data structures
 * shell sort
 * merge sort
 * quick sort
+* heap sort
 
 ## Priority queue
 
