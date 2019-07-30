@@ -29,8 +29,23 @@ class QuickFindUnionFind(object):
         self._validate(p)
         return self.parents[p]
 
-    def union(self):
-        pass
+    def union(self, p, q):
+        """
+        >>> uf = QuickFindUnionFind(3)
+        >>> uf.union(1, 2)
+        >>> uf.parents
+        [0, 1, 1]
+        """
+        self._validate(p)
+        self._validate(q)
+        p_parent = self.find(p)
+        q_parent = self.find(q)
+        if p_parent == q_parent:
+            return
+        for i in range(self.n):
+            if self.parents[i] == q_parent:
+                self.parents[i] = p_parent
+        self.n -= 1
 
     def is_connected(self, p, q):
         """
@@ -42,7 +57,7 @@ class QuickFindUnionFind(object):
         True
         """
         self._validate(p)
-        self._validate(1)
+        self._validate(q)
         return self.find(p) == self.find(q)
 
     def _validate(self, p):
