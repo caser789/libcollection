@@ -6,9 +6,17 @@ class QuickFindUnionFind(object):
 
     def __len__(self):
         """
-        >>> uf = QuickFindUnionFind(10)
+        >>> uf = QuickFindUnionFind(3)
         >>> len(uf)
-        10
+        3
+        >>> uf.union(1, 2)
+        >>> len(uf)
+        2
+        >>> uf.union(0, 1)
+        >>> len(uf)
+        1
+        >>> uf.parents
+        [0, 0, 0]
         """
         return self.n
 
@@ -42,7 +50,7 @@ class QuickFindUnionFind(object):
         q_parent = self.find(q)
         if p_parent == q_parent:
             return
-        for i in range(self.n):
+        for i in range(len(self.parents)):
             if self.parents[i] == q_parent:
                 self.parents[i] = p_parent
         self.n -= 1
