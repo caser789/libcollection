@@ -19,9 +19,16 @@ class QuickFindUnionFind(object):
         Traceback (most recent call last):
             ...
         IndexError: 3
+        >>> uf.find(1)
+        1
+        >>> uf.find(2)
+        2
+        >>> uf.find(0)
+        0
         """
         if not 0 <= p < self.n:
             raise IndexError(p)
+        return self.parents[p]
 
     def union(self):
         pass
