@@ -4,8 +4,26 @@ class QuickUnionUnionFind(object):
         self.n = n
         self.parents = range(n)
 
+    def __len__(self):
+        return self.n
+
     def union(self, p, q):
-        pass
+        """
+        >>> uf = QuickUnionUnionFind(5)
+        >>> uf.parents = [0, 1, 1, 2, 4]
+        >>> uf.union(1, 3)
+        >>> uf.parents
+        [0, 1, 1, 2, 4]
+        >>> uf.union(1, 4)
+        >>> uf.parents
+        [0, 1, 1, 2, 1]
+        """
+        p_parent = self.find(p)
+        q_parent = self.find(q)
+        if p_parent == q_parent:
+            return
+        self.parents[q] = p_parent
+        self.n -= 1
 
     def find(self, p):
         """
