@@ -8,7 +8,18 @@ class QuickUnionUnionFind(object):
         pass
 
     def find(self, p):
-        pass
+        """
+        >>> uf = QuickUnionUnionFind(3)
+        >>> uf.find(1)
+        1
+        >>> uf = QuickUnionUnionFind(5)
+        >>> uf.parents = [0, 1, 1, 2, 4]
+        >>> uf.find(3)
+        1
+        """
+        while p != self.parents[p]:
+            p = self.parents[p]
+        return p
 
     def is_connected(self, p, q):
         pass
