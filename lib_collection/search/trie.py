@@ -76,11 +76,23 @@ class Trie(object):
         node = self._getnode(self.root, key, 0)
         return node is not None
 
-    def __iter__(self):
-        pass
-
     def keys(self):
         return self.keys_with_prefix("")
 
     def keys_with_prefix(self, prefix):
-        pass
+        keys = []
+        node = self._getnode(self.root, prefix, 0)
+        tmp = []
+        self.collect(node, tmp, keys)
+        return keys
+
+    def collect(self, node, tmp, keys):
+        if node is None:
+            return
+        if node.val is not None:
+            keys.append(''.join(tmp))
+
+        for i in range(len(node.children)):
+            tmp.append(chr(ord('a')+i))
+            self.collect(node.children[i], tmp, keys)
+            tmp.pop()
