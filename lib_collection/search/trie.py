@@ -11,10 +11,24 @@ class Trie(object):
         self.root = TrieNode(None)
 
     def __setitem__(self, key, val):
-        pass
+        if val is None:
+            del self[key]
 
-    def _setitem(self):
-        pass
+        self.root = self._setnode(self.root, key, val, 0)
+
+    def _setnode(self, node, key, val, i):
+        if node is None:
+            node = TrieNode(None)
+
+        if len(key) == i:
+            if node.val is None:
+                self.n += 1
+            node.val = val
+            return node
+
+        j = ord(key[i]) - ord('a')
+        node.children[j] = self._setnode(node.children[j], key, val, i+1)
+        return node
 
     def __getitem__(self, key):
         node = self._getnode(self.root, key, 0)
