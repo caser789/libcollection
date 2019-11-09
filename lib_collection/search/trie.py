@@ -80,9 +80,23 @@ class Trie(object):
         return self.keys_with_prefix("")
 
     def keys_with_prefix(self, prefix):
+        """
+        >>> t = Trie()
+        >>> t['a'] = 1
+        >>> t['apple'] = 2
+        >>> t['application'] = 2
+        >>> t['b'] = 2
+        >>> t[''] = 2
+        >>> t['']
+        2
+        >>> t.keys()
+        ['', 'a', 'apple', 'application', 'b']
+        >>> t.keys_with_prefix("app")
+        ['apple', 'application']
+        """
         keys = []
         node = self._getnode(self.root, prefix, 0)
-        tmp = []
+        tmp = [prefix]
         self.collect(node, tmp, keys)
         return keys
 
@@ -96,3 +110,8 @@ class Trie(object):
             tmp.append(chr(ord('a')+i))
             self.collect(node.children[i], tmp, keys)
             tmp.pop()
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
