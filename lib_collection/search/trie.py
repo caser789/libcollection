@@ -1,0 +1,49 @@
+class TrieNode(object):
+
+    def __init__(self, val, r=26):
+        self.val = val
+        self.children = [None] * r
+
+
+class Trie(object):
+
+    def __init__(self):
+        self.root = TrieNode(None)
+
+    def __setitem__(self, key, val):
+        pass
+
+    def _setitem(self):
+        pass
+
+    def __getitem__(self, key):
+        node = self._getnode(self.root, key, 0)
+        if node:
+            return node.val
+
+    def _getnode(self, node, key, i):
+        if node is None:
+            return
+
+        if i == len(key):
+            return node
+
+        j = ord(key[i]) - ord('a')
+
+        return self._getnode(node.children[j], key, i+1)
+
+    def __delitem__(self, key):
+        pass
+
+    def _delitem(self):
+        pass
+
+    def __len__(self):
+        pass
+
+    def __contains__(self, key):
+        node = self._getnode(self.root, key, 0)
+        return node is not None
+
+    def __iter__(self):
+        pass
