@@ -11,6 +11,17 @@ class Trie(object):
         self.root = None
 
     def __getitem__(self, key):
+        """
+        >>> t = Trie()
+        >>> t['a'] is None
+        True
+        >>> t = Trie()
+        >>> node = Node(None)
+        >>> node.children[0] = Node(1)
+        >>> t.root = node
+        >>> t['a'] == 1
+        True
+        """
         node = self._get_node(self.root, key, 0)
         if node is not None:
             return node.val
