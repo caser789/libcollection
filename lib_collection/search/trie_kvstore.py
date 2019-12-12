@@ -219,3 +219,68 @@ class Trie(object):
             chars.append(c)
             self._collect(node.children[i], chars, res)
             chars.pop()
+
+    def keys_with_pattern(self, pattern):
+        pass
+
+    def _collect_with_pattern(self, node, chars, pattern, res):
+        """
+        >>> t = Trie()
+        >>> node = t._collect_with_pattern(None, ['a', 'c'], 'ac', [])
+        >>> node is None
+        True
+        >>> t = Trie()
+        >>> node = Node(1)
+        >>> res = []
+        >>> t._collect_with_pattern(node, ['a', 'c'], 'de', res)
+        >>> res
+        ['ac']
+        >>> t = Trie()
+        >>> node = Node(None)
+        >>> res = []
+        >>> t._collect_with_pattern(node, ['a', 'c'], 'de', res)
+        >>> res
+        []
+        >>> t = Trie()
+        >>> node = Node(None)
+        >>> res = []
+        >>> t._collect_with_pattern(node, ['a', 'c'], 'def', res)
+        >>> res
+        []
+        >>> t = Trie()
+        >>> node = Node(None)
+        >>> node.children[5] = Node(1)
+        >>> res = []
+        >>> t._collect_with_pattern(node, ['a', 'c'], 'def', res)
+        >>> res
+        ['acf']
+        >>> t = Trie()
+        >>> node = Node(None)
+        >>> node.children[5] = Node(1)
+        >>> node.children[6] = Node(1)
+        >>> res = []
+        >>> t._collect_with_pattern(node, ['a', 'c'], 'de.', res)
+        >>> res
+        ['acf', 'acg']
+        """
+        if node is None:
+            return
+
+        d = len(chars)
+        if d == len(pattern):
+            if node.val is not None:
+                res.append(''.join(chars))
+            return
+
+        c = pattern[d]
+        if c == '.':
+            for i in range(len(node.children)):
+                ch = chr(ord('a')+i)
+                chars.append(ch)
+                self._collect_with_pattern(node.children[i], chars, pattern, res)
+                chars.pop()
+        else:
+            chars.append(c)
+            i = ord(c) - ord('a')
+            self._collect_with_pattern(node.children[i], chars, pattern, res)
+            chars.pop()
