@@ -58,6 +58,12 @@ class Trie(object):
         return self._get_node(node.children[i], key, index+1)
 
     def __setitem__(self, key, val):
+        """
+        >>> t = Trie()
+        >>> t['ab'] = 12
+        >>> t['ab']
+        12
+        """
         self.root = self._set_node(self.root, key, val, 0)
 
     def _set_node(self, node, key, val, index):
