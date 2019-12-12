@@ -161,6 +161,15 @@ class Trie(object):
         return None
 
     def keys(self):
+        """
+        >>> t = Trie()
+        >>> t['abc'] = 1
+        >>> t['abcd'] = 2
+        >>> t['abce'] = 3
+        >>> t['ax'] = 4
+        >>> t.keys()
+        ['abc', 'abcd', 'abce', 'ax']
+        """
         return self.keys_with_prefix("")
 
     def keys_with_prefix(self, prefix):
