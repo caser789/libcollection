@@ -297,3 +297,39 @@ class Trie(object):
             i = ord(c) - ord('a')
             self._collect_with_pattern(node.children[i], chars, pattern, res)
             chars.pop()
+
+    def _longest_prefix_of(self, node, query, index, default_length):
+        """
+        >>> t = Trie()
+        >>> d = t._longest_prefix_of(None, '', 11, -1)
+        >>> d == -1
+        True
+        >>> t = Trie()
+        >>> node = Node(1)
+        >>> d = t._longest_prefix_of(node, 'abc', 3, -1)
+        >>> d == 3
+        True
+        >>> t = Trie()
+        >>> node = Node(1)
+        >>> d = t._longest_prefix_of(node, 'abc', 2, 100)
+        >>> d == 2
+        True
+        >>> t = Trie()
+        >>> node = Node(1)
+        >>> node.children[2] = Node(2)
+        >>> d = t._longest_prefix_of(node, 'abc', 2, 100)
+        >>> d == 3
+        True
+        """
+        if node is None:
+            return default_length
+
+        if node.val is not None:
+            default_length = index
+
+        if len(query) == default_length:
+            return default_length
+
+        c = query[index]
+        i = ord(c) - ord('a')
+        return self._longest_prefix_of(node.children[i], query, index+1, default_length)
