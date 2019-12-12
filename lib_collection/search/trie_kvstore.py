@@ -159,3 +159,45 @@ class Trie(object):
             if c is not None:
                 return node
         return None
+
+    def keys(self):
+        return self.keys_with_prefix("")
+
+    def keys_with_prefix(self, prefix):
+        node = self._get_node(self.root, prefix, 0)
+        res = []
+        self._collect(node, list(prefix), res)
+        return res
+
+    def _collect(self, node, chars, res):
+        """
+        >>> t = Trie()
+        >>> res = []
+        >>> t._collect(None, ['a', 'b'], res)
+        >>> not res
+        True
+        >>> t = Trie()
+        >>> node = Node(12)
+        >>> res = []
+        >>> t._collect(node, ['a', 'b'], res)
+        >>> res
+        ['ab']
+        >>> t = Trie()
+        >>> res = []
+        >>> node = Node(None)
+        >>> node.children[2] = Node(11)
+        >>> t._collect(node, ['a', 'b'], res)
+        >>> res
+        ['abc']
+        """
+        if node is None:
+            return
+
+        if node.val is not None:
+            res.append(''.join(chars))
+
+        for i in range(len(node.children)):
+            c = chr(ord('a') + i)
+            chars.append(c)
+            self._collect(node.children[i], chars, res)
+            chars.pop()
