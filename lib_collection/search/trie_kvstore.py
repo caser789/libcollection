@@ -90,3 +90,62 @@ class Trie(object):
         i = ord(c) - ord('a')
         node.children[i] = self._set_node(node.children[i], key, val, index+1)
         return node
+
+    def __delitem__(self, key):
+        self.root = self._del_node(self.root, key, 0)
+
+    def _del_node(self, node, key, index):
+        """
+        >>> t = Trie()
+        >>> node = t._del_node(None, 'ab', 2)
+        >>> node is None
+        True
+        >>> t = Trie()
+        >>> node = Node(12)
+        >>> node = t._del_node(node, 'ab', 2)
+        >>> node is None
+        True
+        >>> t.n
+        -1
+        >>> t = Trie()
+        >>> node = Node(12)
+        >>> node_2 = Node(34)
+        >>> node.children[0] = node_2
+        >>> node3 = t._del_node(node, 'ab', 2)
+        >>> node3 is None
+        False
+        >>> node3 is node
+        True
+        >>> t.n
+        -1
+        >>> t = Trie()
+        >>> node = Node(12)
+        >>> node_2 = Node(34)
+        >>> node.children[2] = node_2
+        >>> node3 = t._del_node(node, 'abc', 2)
+        >>> node3 is node
+        True
+        >>> node3.children[2] is None
+        True
+        >>> t.n
+        -1
+        """
+        if node is None:
+            return
+
+        if index == len(key):
+            if node.val is not None:
+                self.n -= 1
+                node.val = None
+        else:
+            c = key[index]
+            i = ord(c) - ord('a')
+            node.children[i] = self._del_node(node.children[i], key, index+1)
+
+        if node.val is not None:
+            return node
+
+        for c in node.children:
+            if c is not None:
+                return node
+        return None
