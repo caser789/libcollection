@@ -164,6 +164,15 @@ class Trie(object):
         return self.keys_with_prefix("")
 
     def keys_with_prefix(self, prefix):
+        """
+        >>> t = Trie()
+        >>> t['abc'] = 1
+        >>> t['abcd'] = 2
+        >>> t['abce'] = 3
+        >>> t['ax'] = 4
+        >>> t.keys_with_prefix('ab')
+        ['abc', 'abcd', 'abce']
+        """
         node = self._get_node(self.root, prefix, 0)
         res = []
         self._collect(node, list(prefix), res)
