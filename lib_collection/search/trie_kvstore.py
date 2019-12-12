@@ -221,7 +221,20 @@ class Trie(object):
             chars.pop()
 
     def keys_with_pattern(self, pattern):
-        pass
+        """
+        >>> t = Trie()
+        >>> t['a'] = 1
+        >>> t['ab'] = 2
+        >>> t['ac'] = 3
+        >>> t['acd'] = 3
+        >>> t.keys_with_pattern('a.')
+        ['ab', 'ac']
+        >>> t.keys_with_pattern('acd')
+        ['acd']
+        """
+        res = []
+        self._collect_with_pattern(self.root, [], pattern, res)
+        return res
 
     def _collect_with_pattern(self, node, chars, pattern, res):
         """
