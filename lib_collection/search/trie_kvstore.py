@@ -92,6 +92,16 @@ class Trie(object):
         return node
 
     def __delitem__(self, key):
+        """
+        >>> t = Trie()
+        >>> del t['a']
+        >>> t['a'] = 1
+        >>> t['a']
+        1
+        >>> del t['a']
+        >>> t['a'] is None
+        True
+        """
         self.root = self._del_node(self.root, key, 0)
 
     def _del_node(self, node, key, index):
