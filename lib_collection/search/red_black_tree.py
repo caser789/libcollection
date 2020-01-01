@@ -178,3 +178,28 @@ class RedBlackTree(object):
         x.size = y.size
         y.size = self._size(y.left) + self._size(y.right) + 1
         return x
+
+    def _flip_color(self, node):
+        """
+        >>> x = Node('a', 1, RED)
+        >>> y = Node('b', 2, BLACK)
+        >>> z = Node('c', 3, RED)
+        >>> y.left = x
+        >>> y.right = z
+        >>> t = RedBlackTree()
+        >>> a = t._flip_color(y)
+        >>> y.color is RED
+        True
+        >>> x.color is BLACK
+        True
+        >>> z.color is BLACK
+        True
+        """
+        assert node is not None
+        assert node.left is not None
+        assert node.right is not None
+        assert node.color != node.left.color
+        assert node.color != node.right.color
+        node.color = not node.color
+        node.left.color = not node.left.color
+        node.right.color = not node.right.color
