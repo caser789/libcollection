@@ -15,6 +15,16 @@ class RedBlackTree(object):
         self.root = None
 
     def __setitem__(self, k, v):
+        """
+        >>> t = RedBlackTree()
+        >>> t['a'] = 1
+        >>> t.root.k == 'a'
+        True
+        >>> t.root.v == 1
+        True
+        >>> t.root.color == BLACK
+        True
+        """
         self.root = self._set_node(self.root, k, v)
         self.root.color = BLACK
 
@@ -32,3 +42,14 @@ class RedBlackTree(object):
         """
         if node is None:
             return Node(k, v, RED)
+
+    def __len__(self):
+        """
+        >>> t = RedBlackTree()
+        >>> len(t)
+        0
+        >>> t['a'] = 1
+        >>> len(t)
+        1
+        """
+        return self.root.size if self.root is not None else 0
