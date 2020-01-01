@@ -91,3 +91,20 @@ class RedBlackTree(object):
         if node is None:
             return 0
         return node.size
+
+    def _is_red(self, node):
+        """
+        >>> t = RedBlackTree()
+        >>> node = None
+        >>> t._is_red(node)
+        False
+        >>> node = Node('a', 1, RED)
+        >>> t._is_red(node)
+        True
+        >>> node.color = BLACK
+        >>> t._is_red(node)
+        False
+        """
+        if node is None:
+            return False
+        return node.color is RED
