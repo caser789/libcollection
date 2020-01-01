@@ -8,6 +8,8 @@ class Node(object):
         self.v = v
         self.color = color
         self.size = 1
+        self.left = None
+        self.right = None
 
 
 class RedBlackTree(object):
@@ -108,3 +110,37 @@ class RedBlackTree(object):
         if node is None:
             return False
         return node.color is RED
+
+    def _rotate_left(self, node):
+        """
+        >>> t = RedBlackTree()
+        >>> x = Node('a', 1, BLACK)
+        >>> y = Node('b', 2, RED)
+        >>> x.right = y
+        >>> x.size = 2
+        >>> z = t._rotate_left(x)
+        >>> z is y
+        True
+        >>> z.left is x
+        True
+        >>> z.color is BLACK
+        True
+        >>> z.left.color is RED
+        True
+        >>> z.size == 2
+        True
+        >>> z.left.size == 1
+        True
+        """
+        assert node is not None and self._is_red(node.right)
+        x = node
+        y = node.right
+
+        x.right = y.left
+        y.left = x
+        y.color = x.color
+        x.color = RED
+
+        y.size = x.size
+        x.size = self._size(x.left) + self._size(x.right) + 1
+        return y
