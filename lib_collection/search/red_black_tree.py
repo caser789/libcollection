@@ -43,6 +43,25 @@ class RedBlackTree(object):
         if node is None:
             return Node(k, v, RED)
 
+        if node.k == k:
+            node.v = v
+        elif k < node.k:
+            node.left = self._set_node(node.left, k, v)
+        else:
+            node.right = self._set_node(node.right, k, v)
+
+        if self._is_red(node.right) and not self._is_red(node.left):
+            node = self._rotate_left(node)
+
+        if self._is_red(node.left) and self._is_red(node.left.left):
+            node = self._rotate_right(node)
+
+        if self._is_red(node.left) and self._is_red(node.right):
+            self._flip_color(node)
+
+        node.size = self._size(node.left) + self._size(node.right) + 1
+        return node
+
     def __len__(self):
         """
         >>> t = RedBlackTree()
@@ -53,3 +72,22 @@ class RedBlackTree(object):
         1
         """
         return self.root.size if self.root is not None else 0
+
+    def _size(self, node):
+        """
+        >>> t = RedBlackTree()
+        >>> node = None
+        >>> t._size(node)
+        0
+        >>> node = Node('a', 1, RED)
+        >>> node.size
+        1
+        >>> t._size(node)
+        1
+        >>> node.size = 2
+        >>> t._size(node)
+        2
+        """
+        if node is None:
+            return 0
+        return node.size
