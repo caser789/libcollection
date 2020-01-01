@@ -260,3 +260,54 @@ class RedBlackTree(object):
         node.color = not node.color
         node.left.color = not node.left.color
         node.right.color = not node.right.color
+
+    def delete_max(self):
+        if self.root is None:
+            return
+
+        if not self._is_red(self.root.left) and not self._is_red(self.root.right):
+            self.root.color = RED
+
+        self.root = self._del_max_node(self.root)
+
+        if self.root is not None:
+            self.root.color = BLACK
+
+    def _del_max_node(self, node):
+        if self._is_red(node.left):
+            node = self._rotate_right(node)
+
+        if node.right is None:
+            return
+
+        if not self._is_red(node.left) and not self._is_red(node.right):
+            node = self._move_red_right(node)
+
+        node.right = self._del_max_node(node.right)
+        return self._balance(node)
+
+    def _balance(self, node):
+        assert node is not None
+
+        if self._is_red(node.right):
+            node = self._rotate_left(node)
+
+        if self._is_red(node.left) and self._is_red(node.left.left):
+            node = self._rotate_right(node)
+
+        if self._is_red(node.left) and self._is_red(node.right):
+            self._flip_color(node)
+
+        node.size = 1 + self._size(node.left) + self._size(node.right)
+        return node
+
+    def _move_red_right(self, node):
+        assert node is not None
+        assert self._is_red(node)
+        assert not self._is_red(node.left)
+        assert not self._is_red(node.right)
+        self._flip_color(node)
+        if self._is_red(node.left.left):
+            node = self._rotate_right(node)
+            self._flip_color(node)
+        return node
