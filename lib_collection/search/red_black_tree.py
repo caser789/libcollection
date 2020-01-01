@@ -311,3 +311,79 @@ class RedBlackTree(object):
             node = self._rotate_right(node)
             self._flip_color(node)
         return node
+
+    def delete_min(self):
+        if self.root is None:
+            return
+
+        if not self._is_red(self.root.left) and not self._is_red(self.root.right):
+            self.root.color = RED
+
+        self.root = self._del_min_node(self.root)
+
+        if self.root is not None:
+            self.root.color = BLACK
+
+    def _del_min_node(self, node):
+        if node.left is None:
+            return
+
+        if not self._is_red(node.left) and not self._is_red(node.left.left):
+            node = self._move_red_left(node)
+
+        node.left = self._del_min_node(node.left)
+        return self._balance(node)
+
+    def _move_red_left(self, node):
+        assert node is not None
+        assert self._is_red(node)
+        assert not self._is_red(node.left)
+        assert not self._is_red(node.right)
+
+        self._flip_color(node)
+        if self._is_red(node.right.left):
+            node.right = self._rotate_right(node.right)
+            node = self._rotate_left(node)
+            self._flip_color(node)
+        return node
+
+    def __delitem__(self, k):
+        if self.root is None:
+            return
+
+        if not self._is_red(self.root.left) and not self._is_red(self.root.right):
+            self.root.color = RED
+
+        self.root = self._del_node(self.root, k)
+
+        if self.root is not None:
+            self.root.color = BLACK
+
+    def _del_node(self, node, k):
+        if k < node.k:
+            if not self._is_red(node.left) and not self._is_red(node.left.left):
+                node = self._move_red_left(node)
+            node.left = self._del_node(node.left, k)
+        else:
+            if self._is_red(node.left):
+                node = self._rotate_right(node)
+
+            if k == node.k and node.right is None:
+                return
+
+            if not self._is_red(node.right) and not self._is_red(node.right.left):
+                node = self._move_red_right(node)
+
+            if k == node.k:
+                x = self._get_min_node(node.right)
+                node.k = x.k
+                node.v = x.v
+                node.right = self._del_min_node(node.right)
+            else:
+                node.right = self._del_node(node.right, k)
+        return self._balance(node)
+
+    def _get_min_node(self, node):
+        if node.left is None:
+            return node
+        return self._get_min_node(node.left)
