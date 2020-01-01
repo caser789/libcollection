@@ -351,3 +351,20 @@ class Trie(object):
         if length == -1:
             return
         return query[:length]
+
+    def shortest_prefix_of(self, query):
+        prefix = []
+        self._shortest_prefix_of(self.root, query, 0, prefix)
+        return ''.join(prefix)
+
+    def _shortest_prefix_of(self, node, query, i, prefix):
+        if i == len(query):
+            return
+
+        if node.val:
+            return
+
+        c = query[i]
+        j = ord(c) - ord('a')
+        prefix.append(c)
+        self._shortest_prefix_of(node.children[j], query, i+1, prefix)
