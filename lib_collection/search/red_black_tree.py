@@ -41,6 +41,63 @@ class RedBlackTree(object):
         True
         >>> mode.color == BLACK
         False
+
+        >>> t = RedBlackTree()
+        >>> node = Node('b', 2, BLACK)
+        >>> node = t._set_node(node, 'a', 1)
+        >>> node.k == 'b'
+        True
+        >>> node.color is BLACK
+        True
+        >>> node.left.k == 'a'
+        True
+        >>> node.left.color is RED
+        True
+
+        >>> t = RedBlackTree()
+        >>> node = Node('b', 2, BLACK)
+        >>> node = t._set_node(node, 'c', 3)
+        >>> node.k == 'c'
+        True
+        >>> node.color is BLACK
+        True
+        >>> node.left.k == 'b'
+        True
+        >>> node.left.color is RED
+        True
+
+        >>> node = t._set_node(node, 'd', 4)
+        >>> node.k == 'c'
+        True
+        >>> node.color is RED
+        True
+        >>> node.left.k == 'b'
+        True
+        >>> node.left.color is BLACK
+        True
+        >>> node.right.k == 'd'
+        True
+        >>> node.right.color is BLACK
+        True
+
+        >>> t = RedBlackTree()
+        >>> node = None
+        >>> node = t._set_node(node, 'c', 3)
+        >>> node.color = BLACK
+        >>> node = t._set_node(node, 'b', 2)
+        >>> node = t._set_node(node, 'a', 1)
+        >>> node.k == 'b'
+        True
+        >>> node.color is RED
+        True
+        >>> node.left.k == 'a'
+        True
+        >>> node.left.color is BLACK
+        True
+        >>> node.right.k == 'c'
+        True
+        >>> node.right.color is BLACK
+        True
         """
         if node is None:
             return Node(k, v, RED)
