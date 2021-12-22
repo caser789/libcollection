@@ -21,18 +21,34 @@ def find(haystack, needle):
     if m == n == 0:
         return 0
 
+    needle_hash = _hash(needle)
     for i in range(m-n+1):
-        j = 0
-        done = False
-        while not done and j < n:
-            if needle[j] != haystack[i+j]:
-                done = True
-            j += 1
-
-        if not done:
+        h = _hash(haystack[i:i+n])
+        if h == needle_hash:
             return i
 
     return -1
+
+
+def _hash(word):
+    """
+    >>> _hash("")
+    0
+    >>> _hash("a")
+    1
+    >>> _hash("z")
+    26
+    >>> _hash("aa")
+    27
+    >>> _hash("ab")
+    28
+    """
+    res = 0
+    for c in word:
+        res = res * 26 + (ord(c) - ord('a') + 1)
+
+    return res
+
 
 
 if __name__ == '__main__':
