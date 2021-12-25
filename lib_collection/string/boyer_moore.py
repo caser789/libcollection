@@ -21,34 +21,29 @@ def find(haystack, needle):
     if m == n == 0:
         return 0
 
-    needle_hash = _hash(needle)
-    for i in range(m-n+1):
-        h = _hash(haystack[i:i+n])
-        if h == needle_hash:
+    # compute skip table
+    R = 256
+    right = [-1 for _ in range(R)]
+    for i in range(n):
+        right[ord(needle[i])] = i
+
+    # search
+    i = 0
+    while i <= m - n:
+        skip = 0
+        for j in range(n-1, -1, -1):
+            if needle[j] != haystack[i+j]:
+                skip = j - right[ord(haystack[i+j])]
+                if skip < 1:
+                    skip = 1
+                break
+
+        if skip == 0:
             return i
 
+        i += skip
+
     return -1
-
-
-def _hash(word):
-    """
-    >>> _hash("")
-    0
-    >>> _hash("a")
-    1
-    >>> _hash("z")
-    26
-    >>> _hash("aa")
-    27
-    >>> _hash("ab")
-    28
-    """
-    res = 0
-    for c in word:
-        res = res * 26 + (ord(c) - ord('a') + 1)
-
-    return res
-
 
 
 if __name__ == '__main__':
