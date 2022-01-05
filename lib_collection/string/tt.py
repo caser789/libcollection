@@ -1,7 +1,3 @@
-R = 256
-Q = 997
-
-
 def find(haystack, needle):
     """
     >>> find("ll", "hello")
@@ -25,34 +21,32 @@ def find(haystack, needle):
     if m == n == 0:
         return 0
 
-    text_hash = _hash(haystack, n)
-    pattern_hash = _hash(needle, n)
+    # nxt
+    nxt = [0 for _ in range(n+1)]
+    nxt[0] = -1
+    i = 0
+    j = -1
+    while i < n:
+        if j == -1 or needle[i] == needle[j]:
+            i += 1
+            j += 1
+            nxt[i] = j
+        else:
+            j = nxt[j]
 
-    if text_hash == pattern_hash and check(haystack, needle, n, 0):
-        return 0
+    # search
+    i = j = 0
+    while i < m and j < n:
+        if j == -1 or haystack[i] == needle[j]:
+            i += 1
+            j += 1
+        else:
+            j = nxt[j]
 
-    RM = R**(n-1) % Q
-    for i in range(n, m):
-        text_hash = (text_hash + Q - (ord(haystack[i-n]) - ord('a') + 1) * RM % Q) % Q
-        text_hash = (text_hash * R + ord(haystack[i]) - ord('a') + 1) % Q
-        if text_hash == pattern_hash and check(haystack, needle, n, i-n+1):
-            return i-n+1
+    if j == n:
+        return i - n
 
     return -1
-
-
-def _hash(key, n):
-    h = 0
-    for i in range(n):
-        h = (h * R + ord(key[i]) - ord('a') + 1) % Q
-    return h
-
-
-def check(a, b, n, i):
-    for j in range(n):
-        if a[i+j] != b[j]:
-            return False
-    return True
 
 
 if __name__ == '__main__':
